@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 
 public class Calculator extends JFrame implements ActionListener {
 
-    private JButton jeden,dwa,trzy,cztery,piec,szesc,siedem,osiem,dziewiec,zero,plus,minus,rowna_sie,kasuj;
+    private JButton jeden,dwa,trzy,cztery,piec,szesc,siedem,osiem,dziewiec,zero;
+    private JButton plus,minus,mnozenie,dzielenie,rowna_sie,kasuj;
     private JTextField tOknoTekstowe;
 
 
@@ -77,6 +78,18 @@ public class Calculator extends JFrame implements ActionListener {
         add(dziewiec);
         dziewiec.addActionListener(this);
 
+        zero = new JButton("0");
+        zero.setBounds(195,265,50,50);
+        zero.setFont(new Font("Tahoma",Font.BOLD,20));
+        add(zero);
+        zero.addActionListener(this);
+
+        mnozenie = new JButton("*");
+        mnozenie.setBounds(195,210,50,50);
+        mnozenie.setFont(new Font("Tahoma",Font.BOLD,20));
+        add(mnozenie);
+        mnozenie.addActionListener(this);
+
         plus = new JButton("+");
         plus.setBounds(30,265,50,50);
         plus.setFont(new Font("Tahoma",Font.BOLD,20));
@@ -88,6 +101,12 @@ public class Calculator extends JFrame implements ActionListener {
         minus.setFont(new Font("Tahoma",Font.BOLD,20));
         add(minus);
         minus.addActionListener(this);
+
+        dzielenie = new JButton("/");
+        dzielenie.setBounds(195,155,50,50);
+        dzielenie.setFont(new Font("Tahoma",Font.BOLD,20));
+        add(dzielenie);
+        dzielenie.addActionListener(this);
 
         rowna_sie = new JButton("=");
         rowna_sie.setBounds(140,265,50,50);
@@ -103,7 +122,7 @@ public class Calculator extends JFrame implements ActionListener {
 
         tOknoTekstowe = new JTextField("");
         tOknoTekstowe.setBounds(30,20,215,50);
-        tOknoTekstowe.setFont(new Font("Tahoma",Font.BOLD,20));
+        tOknoTekstowe.setFont(new Font("Tahoma",Font.BOLD,30));
         add(tOknoTekstowe);
         tOknoTekstowe.addActionListener(this);
     }
@@ -188,6 +207,18 @@ public class Calculator extends JFrame implements ActionListener {
             tOknoTekstowe.setText("");
             operacja = "-";
         }
+        if(zrodlo == mnozenie)
+        {
+            wartosc_pierwsza = Double.parseDouble(tOknoTekstowe.getText());
+            tOknoTekstowe.setText("");
+            operacja = "*";
+        }
+        if(zrodlo == dzielenie)
+        {
+            wartosc_pierwsza = Double.parseDouble(tOknoTekstowe.getText());
+            tOknoTekstowe.setText("");
+            operacja = "/";
+        }
         if(zrodlo == kasuj)
         {
             tOknoTekstowe.setText(null);
@@ -209,6 +240,18 @@ public class Calculator extends JFrame implements ActionListener {
             else if (operacja=="-")
             {
                 wynik_operacji = wartosc_pierwsza-wartosc_druga;
+                wynik = String.format("%.0f",wynik_operacji);
+                tOknoTekstowe.setText(wynik);
+            }
+            else if (operacja=="*")
+            {
+                wynik_operacji = wartosc_pierwsza*wartosc_druga;
+                wynik = String.format("%.0f",wynik_operacji);
+                tOknoTekstowe.setText(wynik);
+            }
+            else if (operacja=="/")
+            {
+                wynik_operacji = wartosc_pierwsza/wartosc_druga;
                 wynik = String.format("%.0f",wynik_operacji);
                 tOknoTekstowe.setText(wynik);
             }
