@@ -10,11 +10,11 @@ public class Calculator extends JFrame implements ActionListener {
 
 
 
-    double wartosc_pierwsza;
-    double wartosc_druga;
-    double wynik_operacji;
-    String operacja;
-    String wynik;
+   private double wartosc_pierwsza;
+   private double wartosc_druga;
+   private double wynik_operacji;
+   private String operacja;
+   private String wynik;
 
 
     public Calculator()
