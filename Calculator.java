@@ -89,5 +89,9 @@ public class Calculator extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        Object zrodlo_zdarzenia = e.getActionCommand();
+
+
+
     }
 }
