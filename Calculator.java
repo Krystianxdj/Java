@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class Calculator extends JFrame implements ActionListener {
 
-    private JButton jeden,dwa,trzy,cztery,piec,szesc,siedem,osiem,dziewiec,zero,plus,minus,rowna_sie;
+    private JButton jeden,dwa,trzy,cztery,piec,szesc,siedem,osiem,dziewiec,zero,plus,minus,rowna_sie,kasuj;
     private JTextField tOknoTekstowe;
 
 
@@ -20,7 +20,7 @@ public class Calculator extends JFrame implements ActionListener {
     public Calculator()
     {
         setSize(400,400);
-        setTitle("DEC Calculator 1v0 @Krystian Wolski");
+        setTitle("Calculator");
         setLayout(null);
 
         jeden = new JButton("1");
@@ -95,8 +95,15 @@ public class Calculator extends JFrame implements ActionListener {
         add(rowna_sie);
         rowna_sie.addActionListener(this);
 
+        kasuj = new JButton("C");
+        kasuj.setBounds(185,100,50,50);
+        kasuj.setFont(new Font("Tahoma",Font.BOLD,20));
+        add(kasuj);
+        kasuj.addActionListener(this);
+
         tOknoTekstowe = new JTextField("");
-        tOknoTekstowe.setBounds(20,20,200,25);
+        tOknoTekstowe.setBounds(20,20,215,50);
+        tOknoTekstowe.setFont(new Font("Tahoma",Font.BOLD,20));
         add(tOknoTekstowe);
         tOknoTekstowe.addActionListener(this);
     }
@@ -152,34 +159,38 @@ public class Calculator extends JFrame implements ActionListener {
             String liczba = tOknoTekstowe.getText() + siedem.getText();
             tOknoTekstowe.setText(liczba);
         }
-        if(zrodlo==osiem)
+        if(zrodlo == osiem)
         {
             String liczba = tOknoTekstowe.getText() + osiem.getText();
             tOknoTekstowe.setText(liczba);
         }
-        if(zrodlo==dziewiec)
+        if(zrodlo == dziewiec)
         {
             String liczba = tOknoTekstowe.getText() + dziewiec.getText();
             tOknoTekstowe.setText(liczba);
         }
-        if(zrodlo==zero)
+        if(zrodlo == zero)
         {
             String liczba = tOknoTekstowe.getText() + zero.getText();
             tOknoTekstowe.setText(liczba);
         }
 
 
-        if(zrodlo==plus)
+        if(zrodlo == plus)
         {
             wartosc_pierwsza = Double.parseDouble(tOknoTekstowe.getText());
             tOknoTekstowe.setText("");
             operacja = "+";
         }
-        if(zrodlo==minus)
+        if(zrodlo == minus)
         {
             wartosc_pierwsza = Double.parseDouble(tOknoTekstowe.getText());
             tOknoTekstowe.setText("");
             operacja = "-";
+        }
+        if(zrodlo == kasuj)
+        {
+            tOknoTekstowe.setText(null);
         }
 
 
