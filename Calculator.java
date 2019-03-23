@@ -67,6 +67,24 @@ public class Calculator extends JFrame implements ActionListener {
         dziewiec.setFont(new Font("Tahoma",Font.BOLD,20));
         add(dziewiec);
         dziewiec.addActionListener(this);
+
+        plus = new JButton("+");
+        plus.setBounds(20,265,50,50);
+        plus.setFont(new Font("Tahoma",Font.BOLD,20));
+        add(plus);
+        plus.addActionListener(this);
+
+        minus = new JButton("-");
+        minus.setBounds(75,265,50,50);
+        minus.setFont(new Font("Tahoma",Font.BOLD,20));
+        add(minus);
+        minus.addActionListener(this);
+
+        rowna_sie = new JButton("=");
+        rowna_sie.setBounds(130,265,50,50);
+        rowna_sie.setFont(new Font("Tahoma",Font.BOLD,20));
+        add(rowna_sie);
+        rowna_sie.addActionListener(this);
     }
 
 
