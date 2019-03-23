@@ -6,6 +6,13 @@ import java.awt.event.ActionListener;
 public class Calculator extends JFrame implements ActionListener {
 
     private JButton jeden,dwa,trzy,cztery,piec,szesc,siedem,osiem,dziewiec,zero,plus,minus,rowna_sie;
+    private JTextField tOknoTekstowe;
+
+    double wartosc_pierwsza;
+    double wartosc_druga;
+    double wynik_operacji;
+    String operacja;
+    String wynik;
 
 
     public Calculator()
@@ -85,6 +92,11 @@ public class Calculator extends JFrame implements ActionListener {
         rowna_sie.setFont(new Font("Tahoma",Font.BOLD,20));
         add(rowna_sie);
         rowna_sie.addActionListener(this);
+
+        tOknoTekstowe = new JTextField("");
+        tOknoTekstowe.setBounds(20,20,200,25);
+        add(tOknoTekstowe);
+        tOknoTekstowe.addActionListener(this);
     }
 
 
@@ -100,6 +112,56 @@ public class Calculator extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        Object zrodlo = e.getSource();
+
+        if(zrodlo==jeden)
+        {
+            String liczba = tOknoTekstowe.getText() + jeden.getText();
+            tOknoTekstowe.setText(liczba);
+        }
+
+
+
+
+
+
+        if(zrodlo==plus)
+        {
+            wartosc_pierwsza = Double.parseDouble(tOknoTekstowe.getText());
+            tOknoTekstowe.setText("");
+            operacja = "+";
+        }
+        if(zrodlo==minus)
+        {
+            wartosc_pierwsza = Double.parseDouble(tOknoTekstowe.getText());
+            tOknoTekstowe.setText("");
+            operacja = "-";
+        }
+
+
+
+
+
+        if(zrodlo==rowna_sie)
+        {
+            wartosc_druga = Double.parseDouble(tOknoTekstowe.getText());
+            if(operacja =="+")
+            {
+                wynik_operacji = wartosc_pierwsza+wartosc_druga;
+                wynik = String.format("%.0f",wynik_operacji);
+                tOknoTekstowe.setText(wynik);
+            }
+            else if (operacja=="-")
+            {
+                wynik_operacji = wartosc_pierwsza-wartosc_druga;
+                wynik = String.format("%.0f",wynik_operacji);
+                tOknoTekstowe.setText(wynik);
+            }
+
+        }
+
+
 
     }
 }
