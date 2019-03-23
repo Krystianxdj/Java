@@ -9,7 +9,7 @@ public class Calculator extends JFrame implements ActionListener {
 
     public Calculator()
     {
-        setSize(400,300);
+        setSize(500,250);
         setTitle("DEC Calculator v1.0 @KTW");
         setLayout(null);
 
@@ -57,6 +57,21 @@ public class Calculator extends JFrame implements ActionListener {
         dziewiec.setBounds(200,140,50,50);
         add(dziewiec);
         dziewiec.addActionListener(this);
+
+        zero = new JButton("0");
+        zero.setBounds(260,140,50,50);
+        add(zero);
+        zero.addActionListener(this);
+
+        plus = new JButton("+");
+        plus.setBounds(320,80,50,50);
+        add(plus);
+        plus.addActionListener(this);
+
+        rowna_sie = new JButton("=");
+        rowna_sie.setBounds(320,140,50,50);
+        add(rowna_sie);
+        rowna_sie.addActionListener(this);
     }
 
 
