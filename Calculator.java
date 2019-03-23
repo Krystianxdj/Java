@@ -19,90 +19,90 @@ public class Calculator extends JFrame implements ActionListener {
 
     public Calculator()
     {
-        setSize(400,400);
+        setSize(290,400);
         setTitle("Calculator");
         setLayout(null);
 
         jeden = new JButton("1");
-        jeden.setBounds(20,100,50,50);
+        jeden.setBounds(30,100,50,50);
         jeden.setFont(new Font("Tahoma",Font.BOLD,20));
         add(jeden);
         jeden.addActionListener(this);
 
         dwa = new JButton("2");
-        dwa.setBounds(75,100,50,50);
+        dwa.setBounds(85,100,50,50);
         dwa.setFont(new Font("Tahoma",Font.BOLD,20));
         add(dwa);
         dwa.addActionListener(this);
 
         trzy = new JButton("3");
-        trzy.setBounds(130,100,50,50);
+        trzy.setBounds(140,100,50,50);
         trzy.setFont(new Font("Tahoma",Font.BOLD,20));
         add(trzy);
         trzy.addActionListener(this);
 
         cztery = new JButton("4");
-        cztery.setBounds(20,155,50,50);
+        cztery.setBounds(30,155,50,50);
         cztery.setFont(new Font("Tahoma",Font.BOLD,20));
         add(cztery);
         cztery.addActionListener(this);
 
         piec = new JButton("5");
-        piec.setBounds(75,155,50,50);
+        piec.setBounds(85,155,50,50);
         piec.setFont(new Font("Tahoma",Font.BOLD,20));
         add(piec);
         piec.addActionListener(this);
 
         szesc = new JButton("6");
-        szesc.setBounds(130,155,50,50);
+        szesc.setBounds(140,155,50,50);
         szesc.setFont(new Font("Tahoma",Font.BOLD,20));
         add(szesc);
         szesc.addActionListener(this);
 
         siedem = new JButton("7");
-        siedem.setBounds(20,210,50,50);
+        siedem.setBounds(30,210,50,50);
         siedem.setFont(new Font("Tahoma",Font.BOLD,20));
         add(siedem);
         siedem.addActionListener(this);
 
         osiem = new JButton("8");
-        osiem.setBounds(75,210,50,50);
+        osiem.setBounds(85,210,50,50);
         osiem.setFont(new Font("Tahoma",Font.BOLD,20));
         add(osiem);
         osiem.addActionListener(this);
 
         dziewiec = new JButton("9");
-        dziewiec.setBounds(130,210,50,50);
+        dziewiec.setBounds(140,210,50,50);
         dziewiec.setFont(new Font("Tahoma",Font.BOLD,20));
         add(dziewiec);
         dziewiec.addActionListener(this);
 
         plus = new JButton("+");
-        plus.setBounds(20,265,50,50);
+        plus.setBounds(30,265,50,50);
         plus.setFont(new Font("Tahoma",Font.BOLD,20));
         add(plus);
         plus.addActionListener(this);
 
         minus = new JButton("-");
-        minus.setBounds(75,265,50,50);
+        minus.setBounds(85,265,50,50);
         minus.setFont(new Font("Tahoma",Font.BOLD,20));
         add(minus);
         minus.addActionListener(this);
 
         rowna_sie = new JButton("=");
-        rowna_sie.setBounds(130,265,50,50);
+        rowna_sie.setBounds(140,265,50,50);
         rowna_sie.setFont(new Font("Tahoma",Font.BOLD,20));
         add(rowna_sie);
         rowna_sie.addActionListener(this);
 
         kasuj = new JButton("C");
-        kasuj.setBounds(185,100,50,50);
+        kasuj.setBounds(195,100,50,50);
         kasuj.setFont(new Font("Tahoma",Font.BOLD,20));
         add(kasuj);
         kasuj.addActionListener(this);
 
         tOknoTekstowe = new JTextField("");
-        tOknoTekstowe.setBounds(20,20,215,50);
+        tOknoTekstowe.setBounds(30,20,215,50);
         tOknoTekstowe.setFont(new Font("Tahoma",Font.BOLD,20));
         add(tOknoTekstowe);
         tOknoTekstowe.addActionListener(this);
