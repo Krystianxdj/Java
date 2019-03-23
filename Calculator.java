@@ -8,6 +8,8 @@ public class Calculator extends JFrame implements ActionListener {
     private JButton jeden,dwa,trzy,cztery,piec,szesc,siedem,osiem,dziewiec,zero,plus,minus,rowna_sie;
     private JTextField tOknoTekstowe;
 
+
+
     double wartosc_pierwsza;
     double wartosc_druga;
     double wynik_operacji;
@@ -120,10 +122,51 @@ public class Calculator extends JFrame implements ActionListener {
             String liczba = tOknoTekstowe.getText() + jeden.getText();
             tOknoTekstowe.setText(liczba);
         }
-
-
-
-
+        if(zrodlo==dwa)
+        {
+            String liczba = tOknoTekstowe.getText() + dwa.getText();
+            tOknoTekstowe.setText(liczba);
+        }
+        if(zrodlo==trzy)
+        {
+            String liczba = tOknoTekstowe.getText() + trzy.getText();
+            tOknoTekstowe.setText(liczba);
+        }
+        if(zrodlo==cztery)
+        {
+            String liczba = tOknoTekstowe.getText() + cztery.getText();
+            tOknoTekstowe.setText(liczba);
+        }
+        if(zrodlo==piec)
+        {
+            String liczba = tOknoTekstowe.getText() + piec.getText();
+            tOknoTekstowe.setText(liczba);
+        }
+        if(zrodlo==szesc)
+        {
+            String liczba = tOknoTekstowe.getText() + szesc.getText();
+            tOknoTekstowe.setText(liczba);
+        }
+        if(zrodlo==siedem)
+        {
+            String liczba = tOknoTekstowe.getText() + siedem.getText();
+            tOknoTekstowe.setText(liczba);
+        }
+        if(zrodlo==osiem)
+        {
+            String liczba = tOknoTekstowe.getText() + osiem.getText();
+            tOknoTekstowe.setText(liczba);
+        }
+        if(zrodlo==dziewiec)
+        {
+            String liczba = tOknoTekstowe.getText() + dziewiec.getText();
+            tOknoTekstowe.setText(liczba);
+        }
+        if(zrodlo==zero)
+        {
+            String liczba = tOknoTekstowe.getText() + zero.getText();
+            tOknoTekstowe.setText(liczba);
+        }
 
 
         if(zrodlo==plus)
