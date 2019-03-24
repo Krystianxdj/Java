@@ -8,6 +8,9 @@ public class Calculator extends JFrame implements ActionListener {
     private JButton jeden,dwa,trzy,cztery,piec,szesc,siedem,osiem,dziewiec,zero;
     private JButton plus,minus,mnozenie,dzielenie,rowna_sie,kasuj;
     private JTextField tOknoTekstowe;
+    private JLabel autor;
+    private JLabel wersja;
+    private JLabel email;
 
 
 
@@ -125,6 +128,18 @@ public class Calculator extends JFrame implements ActionListener {
         tOknoTekstowe.setFont(new Font("Tahoma",Font.BOLD,30));
         add(tOknoTekstowe);
         tOknoTekstowe.addActionListener(this);
+
+        autor = new JLabel("Krystian Wolski");
+        autor.setBounds(110,320,200,25);
+        add(autor);
+
+        email = new JLabel("krystian.wolski@yahoo.co.uk");
+        email.setBounds(80,335,200,25);
+        add(email);
+
+        wersja = new JLabel("DEC Calculator ver.1.0");
+        wersja.setBounds(30,70,200,25);
+        add(wersja);
     }
 
 
