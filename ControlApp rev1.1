@@ -1,0 +1,73 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ControlApp extends JFrame implements ActionListener
+{
+    private JLabel lPort;
+    private JTextField tPort;
+
+    private JLabel autor;
+    private JLabel wersja;
+    private JLabel email;
+
+    private JButton bBtn1, bBtn2, bBtn3, bBtn4, bBtn5, bComTest;
+
+
+
+
+    public ControlApp()
+    {
+        setSize(500,300);
+        setTitle("ZL27ARM Control App 1.1");
+        setLayout(null);
+
+        lPort = new JLabel("RS232 Port");
+        lPort.setBounds(20,20,100,20);
+        add(lPort);
+
+        tPort = new JTextField();
+        tPort.setBounds(20,40,80,20);
+        add(tPort);
+
+        autor = new JLabel("Krystian Wolski");
+        autor.setBounds(350,200,200,25);
+        add(autor);
+
+        email = new JLabel("krystian.wolski@yahoo.co.uk");
+        email.setBounds(300,215,200,25);
+        add(email);
+
+        bComTest = new JButton("Check");
+        bComTest.setBounds(110,20,70,40);
+        bComTest.addActionListener(this);
+        add(bComTest);
+
+    }
+
+
+
+
+    public static void main(String[] args)
+    {
+        System.out.println("test");
+
+        ControlApp aplikacja = new ControlApp();
+        aplikacja.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        aplikacja.setVisible(true);
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        Object zrodlo = e.getSource();
+        if(zrodlo == bComTest)
+        {
+            //bComTest.setBackground(Color.green);
+            tPort.setBackground(Color.green);
+        }
+
+    }
+}
