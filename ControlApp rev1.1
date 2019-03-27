@@ -48,7 +48,7 @@ public class ControlApp extends JFrame implements ActionListener
         email.setBounds(300,215,200,25);
         add(email);
 
-        bComTest = new JButton("Check");
+        bComTest = new JButton("Open");
         bComTest.setBounds(110,20,70,40);
         bComTest.addActionListener(this);
         add(bComTest);
@@ -57,6 +57,26 @@ public class ControlApp extends JFrame implements ActionListener
         bComFind.setBounds(190,20,70,40);
         bComFind.addActionListener(this);
         add(bComFind);
+
+        bBtn1 = new JButton("DO1");
+        bBtn1.setBounds(20,100,60,60);
+        bBtn1.addActionListener(this);
+        add(bBtn1);
+
+        bBtn2 = new JButton("DO2");
+        bBtn2.setBounds(90,100,60,60);
+        bBtn2.addActionListener(this);
+        add(bBtn2);
+
+        bBtn3 = new JButton("DO3");
+        bBtn3.setBounds(160,100,60,60);
+        bBtn3.addActionListener(this);
+        add(bBtn3);
+
+        bBtn4 = new JButton("DO4");
+        bBtn4.setBounds(230,100,60,60);
+        bBtn4.addActionListener(this);
+        add(bBtn4);
 
     }
 
@@ -113,9 +133,6 @@ public class ControlApp extends JFrame implements ActionListener
             for(int i = 0; i < portNames.length; i++){
                 System.out.println(portNames[i]);
             }
-
-
-
         }
         else if(zrodlo == bComTest || zrodlo == tPort)
         {
@@ -129,7 +146,7 @@ public class ControlApp extends JFrame implements ActionListener
                 int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
                 serialPort.setEventsMask(mask);//Set mask
                 serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
-                serialPort.writeString("testowy\n\r");
+                serialPort.writeString("Connection Established\n\r");
                 tPort.setBackground(Color.green);
                 tPort.setFont(new Font("SansSerif",Font.BOLD,15));
                 serialPort.closePort();
@@ -140,6 +157,54 @@ public class ControlApp extends JFrame implements ActionListener
                 tPort.setFont(new Font("SansSerif",Font.PLAIN,12));
 
             }
+        }
+        else if(zrodlo == bBtn1)
+        {
+            System.out.println("a");
+
+
+
+            try {
+                wybierzPort = tPort.getText();
+                tPort.setText(wybierzPort.toUpperCase());
+                serialPort = new SerialPort(wybierzPort);
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("1a1\n\r");
+                tPort.setBackground(Color.green);
+                tPort.setFont(new Font("SansSerif",Font.BOLD,15));
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                tPort.setBackground(Color.white);
+                tPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+
+            }
+
+
+
+
+
+
+        }
+        else if(zrodlo == bBtn2)
+        {
+            System.out.println("b");
+
+        }
+        else if(zrodlo == bBtn3)
+        {
+            System.out.println("c");
+
+        }
+        else if(zrodlo == bBtn4)
+        {
+            System.out.println("d");
+
         }
 
     }
