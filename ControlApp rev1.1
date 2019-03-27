@@ -18,11 +18,14 @@ public class ControlApp extends JFrame implements ActionListener
     private JLabel wersja;
     private JLabel email;
 
+    private JTextField lPortNo1;
+
     private JButton bBtn1, bBtn2, bBtn3, bBtn4, bBtn5, bComTest,bComFind;
 
     static SerialPort serialPort;
 
     String wybierzPort;
+    String a;
 
 
     public ControlApp()
@@ -78,6 +81,17 @@ public class ControlApp extends JFrame implements ActionListener
         bBtn4.addActionListener(this);
         add(bBtn4);
 
+        //lPortNo1 = new JLabel("RS232 Ports: {Press FIND button}");
+        //lPortNo1.setBounds(20,70,250,20);
+        //add(lPortNo1);
+
+        lPortNo1 = new JTextField("RS232 Ports: Press FIND button");
+        lPortNo1.setBounds(20,70,270,20);
+        lPortNo1.setBackground(Color.green);
+        add(lPortNo1);
+
+
+
     }
 
 
@@ -126,13 +140,18 @@ public class ControlApp extends JFrame implements ActionListener
         {
             //bComTest.setBackground(Color.green);
             //tPort.setBackground(Color.green);
-
+            a="end";
             /////////////////////////////////Check RS port//////////////////////////////////////////////////
             //Method getPortNames() returns an array of strings. Elements of the array is already sorted.
             String[] portNames = SerialPortList.getPortNames();
             for(int i = 0; i < portNames.length; i++){
                 System.out.println(portNames[i]);
+                a=portNames[i]+" | "+a;
             }
+
+
+            lPortNo1.setText("RS232 Ports: "+a);
+
         }
         else if(zrodlo == bComTest || zrodlo == tPort)
         {
@@ -153,7 +172,7 @@ public class ControlApp extends JFrame implements ActionListener
             }
             catch (SerialPortException ex) {
                 System.out.println(ex);
-                tPort.setBackground(Color.white);
+                tPort.setBackground(new Color(255,0,0));
                 tPort.setFont(new Font("SansSerif",Font.PLAIN,12));
 
             }
