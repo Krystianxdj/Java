@@ -11,7 +11,7 @@ import jssc.SerialPortList;
 
 public class ControlApp extends JFrame implements ActionListener
 {
-    private JLabel lPort;
+    private JLabel lPort,lDostepnePorty;
     private JTextField tPort;
 
     private JLabel autor;
@@ -35,7 +35,7 @@ public class ControlApp extends JFrame implements ActionListener
         lPort.setBounds(20,20,100,20);
         add(lPort);
 
-        tPort = new JTextField();
+        tPort = new JTextField("");
         tPort.setBounds(20,40,80,20);
         tPort.addActionListener(this);
         add(tPort);
@@ -53,7 +53,7 @@ public class ControlApp extends JFrame implements ActionListener
         bComTest.addActionListener(this);
         add(bComTest);
 
-        bComFind = new JButton("Check");
+        bComFind = new JButton("Find");
         bComFind.setBounds(190,20,70,40);
         bComFind.addActionListener(this);
         add(bComFind);
@@ -113,6 +113,9 @@ public class ControlApp extends JFrame implements ActionListener
             for(int i = 0; i < portNames.length; i++){
                 System.out.println(portNames[i]);
             }
+
+
+
         }
         else if(zrodlo == bComTest || zrodlo == tPort)
         {
