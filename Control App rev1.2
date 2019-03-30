@@ -1,0 +1,48 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ControlApp extends JFrame implements ActionListener {
+
+    private JTextField tPodajPort;
+    private JLabel lPodajPort;
+    private JButton bPortOpen;
+
+    public ControlApp()
+    {
+        setSize(400,300);
+        setTitle("ZL27ARM Control App 1.2");
+        setLayout(null);
+
+        tPodajPort = new JTextField("");
+        tPodajPort.setBounds(20,40,100,20);
+        tPodajPort.addActionListener(this);
+        add(tPodajPort);
+
+        lPodajPort = new JLabel("RS232 Port");
+        lPodajPort.setBounds(20,20,100,20);
+        add(lPodajPort);
+
+        bPortOpen = new JButton("Open");
+        bPortOpen.setBounds(130,20,70,40);
+        bPortOpen.addActionListener(this);
+        add(bPortOpen);
+
+    }
+
+
+    public static void main(String[] args)
+    {
+      System.out.println("test");
+
+      ControlApp apk = new ControlApp();
+      apk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      apk.setVisible(true);
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+}
