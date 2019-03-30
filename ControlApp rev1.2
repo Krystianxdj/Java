@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,9 +13,11 @@ public class ControlApp extends JFrame implements ActionListener {
 
     static SerialPort serialPort;
 
-    private JTextField tPodajPort,tDostepnePorty;
+    private JTextField tPodajPort, tDostepnePorty;
     private JLabel lPodajPort;
-    private JButton bPortOpen, bPortFind;
+    private JButton bPortOpen, bPortFind, bReset, bLED1, bLED2, bLED3, bLED4;
+
+    String wybierzPort;
 
     public ControlApp()
     {
@@ -44,6 +47,31 @@ public class ControlApp extends JFrame implements ActionListener {
         bPortFind.setBounds(210,20,70,40);
         bPortFind.addActionListener(this);
         add(bPortFind);
+
+        bReset = new JButton("Reset");
+        bReset.setBounds(20,100,100,20);
+        bReset.addActionListener(this);
+        add(bReset);
+
+        bLED1 = new JButton("LED 1");
+        bLED1.setBounds(20,130,100,20);
+        bLED1.addActionListener(this);
+        add(bLED1);
+
+        bLED2 = new JButton("LED 2");
+        bLED2.setBounds(20,160,100,20);
+        bLED2.addActionListener(this);
+        add(bLED2);
+
+        bLED3 = new JButton("LED 3");
+        bLED3.setBounds(20,190,100,20);
+        bLED3.addActionListener(this);
+        add(bLED3);
+
+        bLED4 = new JButton("LED 4");
+        bLED4.setBounds(20,220,100,20);
+        bLED4.addActionListener(this);
+        add(bLED4);
 
 
 
@@ -87,7 +115,27 @@ public class ControlApp extends JFrame implements ActionListener {
 
         if(zrodlo == bPortOpen)
         {
-            System.out.println("open");
+            /////////////////////////////////Check RS port//////////////////////////////////////////////////
+            try {
+                wybierzPort = tPodajPort.getText();
+                tPodajPort.setText(wybierzPort.toUpperCase());
+                serialPort = new SerialPort(wybierzPort);
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("Connection Established\n\r");
+                tPodajPort.setBackground(Color.green);
+                tPodajPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                tPodajPort.setBackground(new Color(255,0,0));
+                tPodajPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+
+            }
         }
         else if (zrodlo == bPortFind)
         {
@@ -102,6 +150,123 @@ public class ControlApp extends JFrame implements ActionListener {
 
 
             tDostepnePorty.setText("RS232 Port: "+a);
+        }
+        else if(zrodlo == bReset)
+        {
+            try {
+                wybierzPort = tPodajPort.getText();
+                tPodajPort.setText(wybierzPort.toUpperCase());
+                serialPort = new SerialPort(wybierzPort);
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("reset\n\r");
+                tPodajPort.setBackground(Color.green);
+                tPodajPort.setFont(new Font("SansSerif",Font.BOLD,15));
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                tPodajPort.setBackground(Color.white);
+                tPodajPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+
+            }
+        }
+
+
+        else if(zrodlo == bLED1)
+        {
+            try {
+                wybierzPort = tPodajPort.getText();
+                tPodajPort.setText(wybierzPort.toUpperCase());
+                serialPort = new SerialPort(wybierzPort);
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("1b1\n\r");
+                tPodajPort.setBackground(Color.green);
+                tPodajPort.setFont(new Font("SansSerif",Font.BOLD,15));
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                tPodajPort.setBackground(Color.white);
+                tPodajPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+
+            }
+        }
+        else if(zrodlo == bLED2)
+        {
+            try {
+                wybierzPort = tPodajPort.getText();
+                tPodajPort.setText(wybierzPort.toUpperCase());
+                serialPort = new SerialPort(wybierzPort);
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("2b1\n\r");
+                tPodajPort.setBackground(Color.green);
+                tPodajPort.setFont(new Font("SansSerif",Font.BOLD,15));
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                tPodajPort.setBackground(Color.white);
+                tPodajPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+
+            }
+        }
+        else if(zrodlo == bLED3)
+        {
+            try {
+                wybierzPort = tPodajPort.getText();
+                tPodajPort.setText(wybierzPort.toUpperCase());
+                serialPort = new SerialPort(wybierzPort);
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("3b1\n\r");
+                tPodajPort.setBackground(Color.green);
+                tPodajPort.setFont(new Font("SansSerif",Font.BOLD,15));
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                tPodajPort.setBackground(Color.white);
+                tPodajPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+
+            }
+        }
+        else if(zrodlo == bLED4)
+        {
+            try {
+                wybierzPort = tPodajPort.getText();
+                tPodajPort.setText(wybierzPort.toUpperCase());
+                serialPort = new SerialPort(wybierzPort);
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("4b1\n\r");
+                tPodajPort.setBackground(Color.green);
+                tPodajPort.setFont(new Font("SansSerif",Font.BOLD,15));
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                tPodajPort.setBackground(Color.white);
+                tPodajPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+
+            }
         }
 
     }
