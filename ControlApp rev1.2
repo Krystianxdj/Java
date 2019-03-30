@@ -2,11 +2,19 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import jssc.SerialPort;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import jssc.SerialPortException;
+import jssc.SerialPortList;
+
 public class ControlApp extends JFrame implements ActionListener {
 
-    private JTextField tPodajPort;
+    static SerialPort serialPort;
+
+    private JTextField tPodajPort,tDostepnePorty;
     private JLabel lPodajPort;
-    private JButton bPortOpen;
+    private JButton bPortOpen, bPortFind;
 
     public ControlApp()
     {
@@ -23,10 +31,21 @@ public class ControlApp extends JFrame implements ActionListener {
         lPodajPort.setBounds(20,20,100,20);
         add(lPodajPort);
 
+        tDostepnePorty = new JTextField("RS232 Port: { Please push FIND button to find");
+        tDostepnePorty.setBounds(20,70,260,20);
+        add(tDostepnePorty);
+
         bPortOpen = new JButton("Open");
         bPortOpen.setBounds(130,20,70,40);
         bPortOpen.addActionListener(this);
         add(bPortOpen);
+
+        bPortFind = new JButton("Find");
+        bPortFind.setBounds(210,20,70,40);
+        bPortFind.addActionListener(this);
+        add(bPortFind);
+
+
 
     }
 
@@ -41,8 +60,49 @@ public class ControlApp extends JFrame implements ActionListener {
     }
 
 
+    static class SerialPortReader implements SerialPortEventListener {
+        public void serialEvent(SerialPortEvent event) {
+            //System.out.println("");
+
+
+            try {
+                //byte buffer[] = serialPort.readBytes(5);
+                String k = serialPort.readString();
+                System.out.println(k);
+
+            } catch (SerialPortException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        Object zrodlo = e.getSource();
+
+        if(zrodlo == bPortOpen)
+        {
+            System.out.println("open");
+        }
+        else if (zrodlo == bPortFind)
+        {
+            String a="end";
+            /////////////////////////////////Check RS port//////////////////////////////////////////////////
+            //Method getPortNames() returns an array of strings. Elements of the array is already sorted.
+            String[] portNames = SerialPortList.getPortNames();
+            for(int i = 0; i < portNames.length; i++){
+                System.out.println(portNames[i]);
+                a=portNames[i]+" | "+a;
+            }
+
+
+            tDostepnePorty.setText("RS232 Port: "+a);
+        }
 
     }
 }
