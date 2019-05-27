@@ -1,14 +1,26 @@
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import jssc.SerialPort;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import jssc.SerialPortException;
+import jssc.SerialPortList;
+
 public class Main extends JFrame implements ActionListener {
 
-    public JCheckBox mode0, mode1, mode2;
-    public JButton bStart, bStop,bCW,bCCW, bRSPortOpen, bRSPortScan;
-    public JTextField tTypeRSPort, tAvailableRSPorts;
-    public JLabel lTypeRSPort;
+    static SerialPort serialPort;
+
+    private JCheckBox mode0, mode1, mode2;
+    private JButton bStart, bStop,bCW,bCCW, bRSPortOpen, bRSPortScan;
+    private JTextField tTypeRSPort, tAvailableRSPorts;
+    private JLabel lTypeRSPort;
+
+    String chosePort;
 
     public Main()
     {
@@ -61,9 +73,14 @@ public class Main extends JFrame implements ActionListener {
         add(bRSPortScan);
         bRSPortScan.addActionListener(this);
 
-        //lTypeRSPort = new JLabel("RS Port");
-        //lTypeRSPort.setBounds(215,90,100,20);
-        //add(lTypeRSPort);
+        lTypeRSPort = new JLabel("RS Port");
+        lTypeRSPort.setBounds(215,90,50,20);
+        add(lTypeRSPort);
+
+        tTypeRSPort = new JTextField("");
+        tTypeRSPort.setBounds(70,90,100,20);
+        tTypeRSPort.addActionListener(this);
+        add(tTypeRSPort);
 
         tAvailableRSPorts = new JTextField("RS232: Please hit SCAN button");
         tAvailableRSPorts.setBounds(215,110,160,20);
@@ -81,11 +98,70 @@ public class Main extends JFrame implements ActionListener {
     }
 
 
+    static class SerialPortReader implements SerialPortEventListener {
+        public void serialEvent(SerialPortEvent event) {
+            //System.out.println("");
+
+
+            try {
+                //byte buffer[] = serialPort.readBytes(5);
+                String k = serialPort.readString();
+                System.out.println(k);
+
+            } catch (SerialPortException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         Object zrodlo = e.getSource();
+
+        if(zrodlo == bRSPortOpen)
+        {
+            /////////////////////////////////Check RS port//////////////////////////////////////////////////
+            try {
+                chosePort = tTypeRSPort.getText();
+                tTypeRSPort.setText(chosePort.toUpperCase());
+                serialPort = new SerialPort(chosePort);
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("Connection Established\n\r");
+                tTypeRSPort.setBackground(Color.green);
+                tTypeRSPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                tTypeRSPort.setBackground(new Color(255,0,0));
+                tTypeRSPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+
+            }
+        }
+        else if (zrodlo == bRSPortScan)
+        {
+            String a="end";
+            /////////////////////////////////Check RS port//////////////////////////////////////////////////
+            //Method getPortNames() returns an array of strings. Elements of the array is already sorted.
+            String[] portNames = SerialPortList.getPortNames();
+            for(int i = 0; i < portNames.length; i++){
+                System.out.println(portNames[i]);
+                a=portNames[i]+" | "+a;
+            }
+
+
+            tAvailableRSPorts.setText(" "+a);
+        }
+
 
         if(zrodlo == mode0)
         {
@@ -134,10 +210,11 @@ public class Main extends JFrame implements ActionListener {
         {
             System.out.println("Scan");
         }
-        if(zrodlo == bRSPortOpen)
-        {
-            System.out.println("Open");
-        }
+
+        //if(zrodlo == bRSPortOpen)
+        //{
+        //   System.out.println("Open");
+        //}
 
 
     }
