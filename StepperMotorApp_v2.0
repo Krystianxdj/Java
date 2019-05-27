@@ -1,0 +1,353 @@
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import jssc.SerialPort;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import jssc.SerialPortException;
+import jssc.SerialPortList;
+
+public class ControlApp extends JFrame implements ActionListener {
+
+    static SerialPort serialPort;
+
+    private JCheckBox mode0, mode1, mode2;
+    private JButton bStart, bStop,bCW,bCCW, bRSPortOpen, bRSPortScan;
+    private JTextField tTypeRSPort, tAvailableRSPorts;
+    private JLabel lTypeRSPort, lAuthor, lEmail;
+
+    String chosePort;
+
+    public ControlApp()
+    {
+        setSize(410,200);
+        setTitle("Stepper Motor Control App v2.0");
+        setLayout(null);
+
+        mode0 = new JCheckBox("    M0    ");
+        mode0.setBounds(20,20,100,20);
+        add(mode0);
+        mode0.addActionListener(this);
+
+        mode1 = new JCheckBox("    M1    ");
+        mode1.setBounds(20,40,100,20);
+        add(mode1);
+        mode1.addActionListener(this);
+
+        mode2 = new JCheckBox("    M2    ");
+        mode2.setBounds(20,60,100,20);
+        add(mode2);
+        mode2.addActionListener(this);
+
+        bStart = new JButton("Start");
+        bStart.setBounds(20,110,80,20);
+        add(bStart);
+        bStart.addActionListener(this);
+
+        bStop = new JButton("Stop");
+        bStop.setBounds(20,135,80,20);
+        add(bStop);
+        bStop.addActionListener(this);
+
+        bCW = new JButton("CW");
+        bCW.setBounds(110,110,80,20);
+        add(bCW);
+        bCW.addActionListener(this);
+
+        bCCW = new JButton("CCW");
+        bCCW.setBounds(110,135,80,20);
+        add(bCCW);
+        bCCW.addActionListener(this);
+
+        bRSPortOpen = new JButton("Open");
+        bRSPortOpen.setBounds(300,135,75,20);
+        add(bRSPortOpen);
+        bRSPortOpen.addActionListener(this);
+
+        bRSPortScan = new JButton("Scan");
+        bRSPortScan.setBounds(215,135,75,20);
+        add(bRSPortScan);
+        bRSPortScan.addActionListener(this);
+
+        lTypeRSPort = new JLabel("RS Port");
+        lTypeRSPort.setBounds(215,90,50,20);
+        add(lTypeRSPort);
+
+        tTypeRSPort = new JTextField("");
+        tTypeRSPort.setBounds(270,90,105,20);
+        tTypeRSPort.addActionListener(this);
+        add(tTypeRSPort);
+
+        tAvailableRSPorts = new JTextField("RS232: Please hit SCAN button");
+        tAvailableRSPorts.setBounds(215,110,160,20);
+        tAvailableRSPorts.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,10));
+        add(tAvailableRSPorts);
+        tAvailableRSPorts.addActionListener(this);
+
+        lAuthor = new JLabel("Krystian Wolski");
+        lAuthor.setBounds(270,10,100,20);
+        lAuthor.setFont(new Font(Font.SANS_SERIF,Font.BOLD,9));
+        add(lAuthor);
+
+        lEmail = new JLabel("krystian.wolski@yahoo.co.uk");
+        lEmail.setBounds(240,20,190,20);
+        lEmail.setFont(new Font(Font.SANS_SERIF,Font.BOLD,9));
+        add(lEmail);
+    }
+
+
+    public static void main(String[] arg)
+    {
+        ControlApp apk = new ControlApp();
+        apk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        apk.setVisible(true);
+    }
+
+
+    static class SerialPortReader implements SerialPortEventListener {
+        public void serialEvent(SerialPortEvent event) {
+            //System.out.println("");
+
+
+            try {
+                //byte buffer[] = serialPort.readBytes(5);
+                String k = serialPort.readString();
+                System.out.println(k);
+
+            } catch (SerialPortException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        Object zrodlo = e.getSource();
+
+        if(zrodlo == bRSPortOpen)
+        {
+            /////////////////////////////////Check RS port//////////////////////////////////////////////////
+            try {
+                chosePort = tTypeRSPort.getText();
+                tTypeRSPort.setText(chosePort.toUpperCase());
+                serialPort = new SerialPort(chosePort);
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("Connection Established\n\r");
+                tTypeRSPort.setBackground(Color.green);
+                tTypeRSPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                tTypeRSPort.setBackground(new Color(255,0,0));
+                tTypeRSPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+
+            }
+        }
+        else if (zrodlo == bRSPortScan)
+        {
+            String a="end";
+            /////////////////////////////////Check RS port//////////////////////////////////////////////////
+            //Method getPortNames() returns an array of strings. Elements of the array is already sorted.
+            String[] portNames = SerialPortList.getPortNames();
+            for(int i = 0; i < portNames.length; i++){
+                System.out.println(portNames[i]);
+                a=portNames[i]+" | "+a;
+            }
+
+
+            tAvailableRSPorts.setText(" "+a);
+        }
+        else if(zrodlo == mode0)
+        {
+            if(mode0.isSelected() == true)
+            {
+                System.out.println("Mode 0 on");
+
+                try {
+                    serialPort.openPort();//Open port
+                    serialPort.setParams(9600, 8, 1, 0);//Set params
+                    int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                    serialPort.setEventsMask(mask);//Set mask
+                    serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                    serialPort.writeString("1m0\n\r");
+                    serialPort.closePort();
+                }
+                catch (SerialPortException ex) {
+                    System.out.println(ex);
+                    System.out.println("tr");
+                }
+
+
+
+
+            }
+            else {
+                System.out.println("Mode 0 off");
+
+
+                try {
+                    serialPort.openPort();//Open port
+                    serialPort.setParams(9600, 8, 1, 0);//Set params
+                    int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                    serialPort.setEventsMask(mask);//Set mask
+                    serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                    serialPort.writeString("0m0\n\r");
+                    serialPort.closePort();
+                } catch (SerialPortException ex) {
+                    System.out.println(ex);
+                    System.out.println("tr");
+                }
+            }
+
+
+
+        }
+        if(zrodlo == mode1)
+        {
+            if(mode1.isSelected() == true)
+            {
+                System.out.println("Mode 1 on");
+
+                try {
+                    serialPort.openPort();//Open port
+                    serialPort.setParams(9600, 8, 1, 0);//Set params
+                    int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                    serialPort.setEventsMask(mask);//Set mask
+                    serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                    serialPort.writeString("1m1\n\r");
+                    serialPort.closePort();
+                }
+                catch (SerialPortException ex) {
+                    System.out.println(ex);
+                    System.out.println("tr");
+                }
+
+
+
+
+            }
+            else {
+                System.out.println("Mode 1 off");
+
+
+                try {
+                    serialPort.openPort();//Open port
+                    serialPort.setParams(9600, 8, 1, 0);//Set params
+                    int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                    serialPort.setEventsMask(mask);//Set mask
+                    serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                    serialPort.writeString("0m1\n\r");
+                    serialPort.closePort();
+                } catch (SerialPortException ex) {
+                    System.out.println(ex);
+                    System.out.println("tr");
+                }
+            }
+
+
+
+        }
+        else if(zrodlo == mode2)
+        {
+            if(mode2.isSelected() == true)
+            {
+                System.out.println("Mode 2 on");
+
+                try {
+                    serialPort.openPort();//Open port
+                    serialPort.setParams(9600, 8, 1, 0);//Set params
+                    int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                    serialPort.setEventsMask(mask);//Set mask
+                    serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                    serialPort.writeString("1m2\n\r");
+                    serialPort.closePort();
+                }
+                catch (SerialPortException ex) {
+                    System.out.println(ex);
+                    System.out.println("tr");
+                }
+            }
+            else {
+                System.out.println("Mode 2 off");
+
+                try {
+                    serialPort.openPort();//Open port
+                    serialPort.setParams(9600, 8, 1, 0);//Set params
+                    int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                    serialPort.setEventsMask(mask);//Set mask
+                    serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                    serialPort.writeString("0m2\n\r");
+                    serialPort.closePort();
+                } catch (SerialPortException ex) {
+                    System.out.println(ex);
+                    System.out.println("tr");
+                }
+
+            }
+
+        }
+        else if(zrodlo == bStart)
+        {
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("1a1\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
+        }
+        else if(zrodlo == bStop)
+        {
+            System.out.println("Stop");
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("1a0\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
+
+
+
+        }
+        else if(zrodlo == bCW)
+        {
+            System.out.println("CW");
+        }
+        else if(zrodlo == bCCW)
+        {
+            System.out.println("CCW");
+        }
+
+
+    }
+
+
+
+}
