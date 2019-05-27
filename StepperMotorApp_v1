@@ -1,0 +1,147 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Main extends JFrame implements ActionListener {
+
+    public JCheckBox mode0, mode1, mode2;
+    public JButton bStart, bStop,bCW,bCCW, bRSPortOpen, bRSPortScan;
+    public JTextField tTypeRSPort, tAvailableRSPorts;
+    public JLabel lTypeRSPort;
+
+    public Main()
+    {
+        setSize(410,220);
+        setTitle("Stepper Motor Control App v1");
+        setLayout(null);
+
+        mode0 = new JCheckBox("    M0    ");
+        mode0.setBounds(20,20,100,20);
+        add(mode0);
+        mode0.addActionListener(this);
+
+        mode1 = new JCheckBox("    M1    ");
+        mode1.setBounds(20,40,100,20);
+        add(mode1);
+        mode1.addActionListener(this);
+
+        mode2 = new JCheckBox("    M2    ");
+        mode2.setBounds(20,60,100,20);
+        add(mode2);
+        mode2.addActionListener(this);
+
+        bStart = new JButton("Start");
+        bStart.setBounds(20,110,80,20);
+        add(bStart);
+        bStart.addActionListener(this);
+
+        bStop = new JButton("Stop");
+        bStop.setBounds(20,135,80,20);
+        add(bStop);
+        bStop.addActionListener(this);
+
+        bCW = new JButton("CW");
+        bCW.setBounds(110,110,80,20);
+        add(bCW);
+        bCW.addActionListener(this);
+
+        bCCW = new JButton("CCW");
+        bCCW.setBounds(110,135,80,20);
+        add(bCCW);
+        bCCW.addActionListener(this);
+
+        bRSPortOpen = new JButton("Open");
+        bRSPortOpen.setBounds(300,135,75,20);
+        add(bRSPortOpen);
+        bRSPortOpen.addActionListener(this);
+
+        bRSPortScan = new JButton("Scan");
+        bRSPortScan.setBounds(215,135,75,20);
+        add(bRSPortScan);
+        bRSPortScan.addActionListener(this);
+
+        //lTypeRSPort = new JLabel("RS Port");
+        //lTypeRSPort.setBounds(215,90,100,20);
+        //add(lTypeRSPort);
+
+        tAvailableRSPorts = new JTextField("RS232: Please hit SCAN button");
+        tAvailableRSPorts.setBounds(215,110,160,20);
+        tAvailableRSPorts.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,10));
+        add(tAvailableRSPorts);
+        tAvailableRSPorts.addActionListener(this);
+    }
+
+
+    public static void main(String[] arg)
+    {
+        Main apk = new Main();
+        apk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        apk.setVisible(true);
+    }
+
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        Object zrodlo = e.getSource();
+
+        if(zrodlo == mode0)
+        {
+            if(mode0.isSelected() == true)
+            {
+                System.out.println("Mode 0 on");
+            }
+            else
+                System.out.println("Mode 0 off");
+        }
+        if(zrodlo == mode1)
+        {
+            if(mode1.isSelected() == true)
+            {
+                System.out.println("Mode 1 on");
+            }
+            else
+                System.out.println("Mode 1 off");
+        }
+        if(zrodlo == mode2)
+        {
+            if(mode2.isSelected() == true)
+            {
+                System.out.println("Mode 2 on");
+            }
+            else
+                System.out.println("Mode 2 off");
+        }
+        if(zrodlo == bStart)
+        {
+            System.out.println("Start");
+        }
+        if(zrodlo == bStop)
+        {
+            System.out.println("Stop");
+        }
+        if(zrodlo == bCW)
+        {
+            System.out.println("CW");
+        }
+        if(zrodlo == bCCW)
+        {
+            System.out.println("CCW");
+        }
+        if(zrodlo == bRSPortScan)
+        {
+            System.out.println("Scan");
+        }
+        if(zrodlo == bRSPortOpen)
+        {
+            System.out.println("Open");
+        }
+
+
+    }
+
+
+
+}
