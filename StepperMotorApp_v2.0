@@ -16,86 +16,175 @@ public class ControlApp extends JFrame implements ActionListener {
     static SerialPort serialPort;
 
     private JCheckBox mode0, mode1, mode2;
-    private JButton bStart, bStop,bCW,bCCW, bRSPortOpen, bRSPortScan;
+    private JButton bDriveEnable, bDriveDisable, bDemo1, bDemo2, bDemo3, bStart, bStop,bCW,bCCW, bRSPortOpen, bRSPortScan;
     private JTextField tTypeRSPort, tAvailableRSPorts;
     private JLabel lTypeRSPort, lAuthor, lEmail;
+    private JSlider sSpeed;
 
     String chosePort;
 
+
+    public void sliderChanged()
+    {
+        if (sSpeed.getValue() == 0)
+        {
+            //JOptionPane.showMessageDialog(sSpeed,
+            //        "speed 100%",
+            //        "The Machine",
+            //        JOptionPane.WARNING_MESSAGE);
+
+            System.out.println("0% Max Speed");
+        }
+        else if (sSpeed.getValue() == 1)
+        {
+            //JOptionPane.showMessageDialog(sSpeed,
+            //        "speed 100%",
+            //        "The Machine",
+            //        JOptionPane.WARNING_MESSAGE);
+
+            System.out.println("25% Max Speed");
+        }
+        else if (sSpeed.getValue() == 2)
+        {
+            //JOptionPane.showMessageDialog(sSpeed,
+            //        "2",
+            //        "The Machine",
+            //        JOptionPane.WARNING_MESSAGE);
+            System.out.println("50% Max Speed");
+        }
+        else if (sSpeed.getValue() == 3)
+        {
+            //JOptionPane.showMessageDialog(sSpeed,
+            //        "2",
+            //        "The Machine",
+            //        JOptionPane.WARNING_MESSAGE);
+            System.out.println("75% Max Speed");
+        }
+        else if (sSpeed.getValue() == 4)
+        {
+            //JOptionPane.showMessageDialog(sSpeed,
+            //        "2",
+            //        "The Machine",
+            //        JOptionPane.WARNING_MESSAGE);
+            System.out.println("100% Max Speed");
+        }
+        else
+        {
+
+        }
+    }
+
     public ControlApp()
     {
-        setSize(410,200);
+        setSize(520,220);
         setTitle("Stepper Motor Control App v2.0");
         setLayout(null);
 
+        sSpeed = new JSlider(0,4,0);
+        sSpeed.setOrientation(SwingConstants.HORIZONTAL);
+        sSpeed.setMajorTickSpacing(1);
+        sSpeed.setMinorTickSpacing(1);
+        sSpeed.setPaintTicks(true);
+        sSpeed.setPaintLabels(true);
+        sSpeed.setBounds(103,30,184,50);
+        add(sSpeed);
+        sSpeed.addChangeListener(e -> sliderChanged());
+
         mode0 = new JCheckBox("    M0    ");
-        mode0.setBounds(20,20,100,20);
+        mode0.setBounds(20,20,80,20);
         add(mode0);
         mode0.addActionListener(this);
 
         mode1 = new JCheckBox("    M1    ");
-        mode1.setBounds(20,40,100,20);
+        mode1.setBounds(20,40,80,20);
         add(mode1);
         mode1.addActionListener(this);
 
         mode2 = new JCheckBox("    M2    ");
-        mode2.setBounds(20,60,100,20);
+        mode2.setBounds(20,60,80,20);
         add(mode2);
         mode2.addActionListener(this);
 
+        bDriveEnable = new JButton("Enable");
+        bDriveEnable.setBounds(20,100,80,20);
+        add(bDriveEnable);
+        bDriveEnable.addActionListener(this);
+
+        bDriveDisable = new JButton("Disable");
+        bDriveDisable.setBounds(110,100,80,20);
+        add(bDriveDisable);
+        bDriveDisable.addActionListener(this);
+
+        bDemo1 = new JButton("Demo 1");
+        bDemo1.setBounds(200,100,80,20);
+        add(bDemo1);
+        bDemo1.addActionListener(this);
+
+        bDemo2 = new JButton("Demo 2");
+        bDemo2.setBounds(200,125,80,20);
+        add(bDemo2);
+        bDemo2.addActionListener(this);
+
+        bDemo3 = new JButton("Demo 3");
+        bDemo3.setBounds(200,150,80,20);
+        add(bDemo3);
+        bDemo3.addActionListener(this);
+
         bStart = new JButton("Start");
-        bStart.setBounds(20,110,80,20);
+        bStart.setBounds(20,125,80,20);
+        bStart.setBackground(Color.green);
         add(bStart);
         bStart.addActionListener(this);
 
         bStop = new JButton("Stop");
-        bStop.setBounds(20,135,80,20);
+        bStop.setBounds(20,150,80,20);
+        bStop.setBackground(Color.red);
         add(bStop);
         bStop.addActionListener(this);
 
         bCW = new JButton("CW");
-        bCW.setBounds(110,110,80,20);
+        bCW.setBounds(110,125,80,20);
         add(bCW);
         bCW.addActionListener(this);
 
         bCCW = new JButton("CCW");
-        bCCW.setBounds(110,135,80,20);
+        bCCW.setBounds(110,150,80,20);
         add(bCCW);
         bCCW.addActionListener(this);
 
         bRSPortOpen = new JButton("Open");
-        bRSPortOpen.setBounds(300,135,75,20);
+        bRSPortOpen.setBounds(415,150,75,20);
         add(bRSPortOpen);
         bRSPortOpen.addActionListener(this);
 
         bRSPortScan = new JButton("Scan");
-        bRSPortScan.setBounds(215,135,75,20);
+        bRSPortScan.setBounds(330,150,75,20);
         add(bRSPortScan);
         bRSPortScan.addActionListener(this);
 
         lTypeRSPort = new JLabel("RS Port");
-        lTypeRSPort.setBounds(215,90,50,20);
+        lTypeRSPort.setBounds(330,100,50,20);
         add(lTypeRSPort);
 
         tTypeRSPort = new JTextField("");
-        tTypeRSPort.setBounds(270,90,105,20);
+        tTypeRSPort.setBounds(385,100,105,20);
         tTypeRSPort.addActionListener(this);
         add(tTypeRSPort);
 
         tAvailableRSPorts = new JTextField("RS232: Please hit SCAN button");
-        tAvailableRSPorts.setBounds(215,110,160,20);
+        tAvailableRSPorts.setBounds(330,125,160,20);
         tAvailableRSPorts.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,10));
         add(tAvailableRSPorts);
         tAvailableRSPorts.addActionListener(this);
 
         lAuthor = new JLabel("Krystian Wolski");
-        lAuthor.setBounds(270,10,100,20);
-        lAuthor.setFont(new Font(Font.SANS_SERIF,Font.BOLD,9));
+        lAuthor.setBounds(380,10,100,20);
+        lAuthor.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,10));
         add(lAuthor);
 
         lEmail = new JLabel("krystian.wolski@yahoo.co.uk");
-        lEmail.setBounds(240,20,190,20);
-        lEmail.setFont(new Font(Font.SANS_SERIF,Font.BOLD,9));
+        lEmail.setBounds(340,20,190,20);
+        lEmail.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,10));
         add(lEmail);
     }
 
@@ -302,6 +391,7 @@ public class ControlApp extends JFrame implements ActionListener {
         }
         else if(zrodlo == bStart)
         {
+            System.out.println("Start");
             try {
                 serialPort.openPort();//Open port
                 serialPort.setParams(9600, 8, 1, 0);//Set params
@@ -339,10 +429,121 @@ public class ControlApp extends JFrame implements ActionListener {
         else if(zrodlo == bCW)
         {
             System.out.println("CW");
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("2a0\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         else if(zrodlo == bCCW)
         {
             System.out.println("CCW");
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("2a1\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
+        }
+        else if(zrodlo == bDriveEnable)
+        {
+            System.out.println("Enable");
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("3a1\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
+        }
+        else if(zrodlo == bDriveDisable)
+        {
+            System.out.println("Disable");
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("3a0\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
+        }
+        else if(zrodlo == bDemo1)
+        {
+            System.out.println("Demo Mode 1");
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("4a1\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
+        }
+        else if(zrodlo == bDemo2)
+        {
+            System.out.println("Demo Mode 2");
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("5a1\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
+        }
+        else if(zrodlo == bDemo3)
+        {
+            System.out.println("Demo Mode 3");
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("6a1\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
 
 
