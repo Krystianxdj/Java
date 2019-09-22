@@ -8,7 +8,8 @@ public class ControlApp extends JFrame implements ActionListener {
 
 
     private JButton bZ1_LED1_ON, bZ1_LED1_OFF, bZ1_LED2_ON, bZ1_LED2_OFF, bZ1_LED3_ON, bZ1_LED3_OFF;
-    private JLabel lLabel1;
+    private JButton bZ1_LED4_ON, bZ1_LED4_OFF, bZ1_LED5_ON, bZ1_LED5_OFF;
+    private JLabel lLabel1, lLabel2;
 
     public ControlApp() {
         setSize(800, 600);
@@ -16,10 +17,16 @@ public class ControlApp extends JFrame implements ActionListener {
         setLayout(null);
 
         lLabel1 = new JLabel("Zone 1 Control");
-        lLabel1.setBounds(45,14,120,25);
+        lLabel1.setBounds(55,200,120,25);
         lLabel1.setForeground(new Color(100,100,100));
         lLabel1.setFont(new Font("TimesRoman", Font.BOLD, 15));
         add(lLabel1);
+
+        lLabel2 = new JLabel("Zone 2 Control");
+        lLabel2.setBounds(280,14,120,25);
+        lLabel2.setForeground(new Color(100,100,100));
+        lLabel2.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        add(lLabel2);
 
         bZ1_LED1_ON = new JButton("LED1 ON");
         bZ1_LED1_ON.setBounds(50,40,100,25);
@@ -45,6 +52,21 @@ public class ControlApp extends JFrame implements ActionListener {
         bZ1_LED3_OFF.setBounds(155,100,100,25);
         add(bZ1_LED3_OFF);
 
+        bZ1_LED4_ON = new JButton("LED4 ON");
+        bZ1_LED4_ON.setBounds(50,130,100,25);
+        add(bZ1_LED4_ON);
+
+        bZ1_LED4_OFF = new JButton("LED4 OFF");
+        bZ1_LED4_OFF.setBounds(155,130,100,25);
+        add(bZ1_LED4_OFF);
+
+        bZ1_LED5_ON = new JButton("LED5 ON");
+        bZ1_LED5_ON.setBounds(50,160,100,25);
+        add(bZ1_LED5_ON);
+
+        bZ1_LED5_OFF = new JButton("LED5 OFF");
+        bZ1_LED5_OFF.setBounds(155,160,100,25);
+        add(bZ1_LED5_OFF);
 
 
     }
@@ -54,11 +76,11 @@ public class ControlApp extends JFrame implements ActionListener {
         Graphics2D g2 = (Graphics2D) g;
         //Line2D lin = new Line2D.Float(58, 68, 270, 68);
 
-        Rectangle area_1 = new Rectangle(50,65,220,95);
+        Rectangle area_1 = new Rectangle(50,65,220,195);
         g.setColor(new Color(100,100,100));
         g2.draw(area_1);
 
-        Rectangle area_2 = new Rectangle(50,180,220,95);
+        Rectangle area_2 = new Rectangle(285,65,220,95);
         g.setColor(new Color(100,100,100));
         g2.draw(area_2);
     }
