@@ -1,0 +1,79 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.*;
+
+public class ControlApp extends JFrame implements ActionListener {
+
+
+    private JButton bZ1_LED1_ON, bZ1_LED1_OFF, bZ1_LED2_ON, bZ1_LED2_OFF, bZ1_LED3_ON, bZ1_LED3_OFF;
+    private JLabel lLabel1;
+
+    public ControlApp() {
+        setSize(800, 600);
+        setTitle("CAN Bus Control App r1.0");
+        setLayout(null);
+
+        lLabel1 = new JLabel("Zone 1 Control");
+        lLabel1.setBounds(45,14,120,25);
+        lLabel1.setForeground(new Color(100,100,100));
+        lLabel1.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        add(lLabel1);
+
+        bZ1_LED1_ON = new JButton("LED1 ON");
+        bZ1_LED1_ON.setBounds(50,40,100,25);
+        add(bZ1_LED1_ON);
+
+        bZ1_LED1_OFF = new JButton("LED1 OFF");
+        bZ1_LED1_OFF.setBounds(155,40,100,25);
+        add(bZ1_LED1_OFF);
+
+        bZ1_LED2_ON = new JButton("LED2 ON");
+        bZ1_LED2_ON.setBounds(50,70,100,25);
+        add(bZ1_LED2_ON);
+
+        bZ1_LED2_OFF = new JButton("LED2 OFF");
+        bZ1_LED2_OFF.setBounds(155,70,100,25);
+        add(bZ1_LED2_OFF);
+
+        bZ1_LED3_ON = new JButton("LED3 ON");
+        bZ1_LED3_ON.setBounds(50,100,100,25);
+        add(bZ1_LED3_ON);
+
+        bZ1_LED3_OFF = new JButton("LED3 OFF");
+        bZ1_LED3_OFF.setBounds(155,100,100,25);
+        add(bZ1_LED3_OFF);
+
+
+
+    }
+
+    public void paint(Graphics g) {
+        super.paint(g);  // fixes the immediate problem.
+        Graphics2D g2 = (Graphics2D) g;
+        //Line2D lin = new Line2D.Float(58, 68, 270, 68);
+
+        Rectangle area_1 = new Rectangle(50,65,220,95);
+        g.setColor(new Color(100,100,100));
+        g2.draw(area_1);
+
+        Rectangle area_2 = new Rectangle(50,180,220,95);
+        g.setColor(new Color(100,100,100));
+        g2.draw(area_2);
+    }
+
+
+    public static void main(String[] args) {
+        //System.out.println("Hello World!");
+        ControlApp apk = new ControlApp();
+        apk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        apk.setVisible(true);
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+}
