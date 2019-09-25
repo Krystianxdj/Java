@@ -4,11 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.*;
 
+import jssc.SerialPort;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import jssc.SerialPortException;
+import jssc.SerialPortList;
+
 public class ControlApp extends JFrame implements ActionListener {
 
 
     private JButton bZ1_LED1_ON, bZ1_LED1_OFF, bZ1_LED2_ON, bZ1_LED2_OFF, bZ1_LED3_ON, bZ1_LED3_OFF;
     private JButton bZ1_LED4_ON, bZ1_LED4_OFF, bZ1_LED5_ON, bZ1_LED5_OFF;
+
+    private JButton bZ2_LED1_ON, bZ2_LED1_OFF, bZ2_LED2_ON, bZ2_LED2_OFF, bZ2_LED3_ON, bZ2_LED3_OFF;
+    private JButton bZ2_LED4_ON, bZ2_LED4_OFF, bZ2_LED5_ON, bZ2_LED5_OFF;
+
     private JLabel lLabel1, lLabel2;
 
     public ControlApp() {
@@ -23,50 +33,112 @@ public class ControlApp extends JFrame implements ActionListener {
         add(lLabel1);
 
         lLabel2 = new JLabel("Zone 2 Control");
-        lLabel2.setBounds(280,14,120,25);
+        lLabel2.setBounds(290,200,120,25);
         lLabel2.setForeground(new Color(100,100,100));
         lLabel2.setFont(new Font("TimesRoman", Font.BOLD, 15));
         add(lLabel2);
 
         bZ1_LED1_ON = new JButton("LED1 ON");
         bZ1_LED1_ON.setBounds(50,40,100,25);
+        bZ1_LED1_ON.addActionListener(this);
         add(bZ1_LED1_ON);
+
 
         bZ1_LED1_OFF = new JButton("LED1 OFF");
         bZ1_LED1_OFF.setBounds(155,40,100,25);
+        bZ1_LED1_OFF.addActionListener(this);
         add(bZ1_LED1_OFF);
 
         bZ1_LED2_ON = new JButton("LED2 ON");
         bZ1_LED2_ON.setBounds(50,70,100,25);
+        bZ1_LED2_ON.addActionListener(this);
         add(bZ1_LED2_ON);
 
         bZ1_LED2_OFF = new JButton("LED2 OFF");
         bZ1_LED2_OFF.setBounds(155,70,100,25);
+        bZ1_LED2_OFF.addActionListener(this);
         add(bZ1_LED2_OFF);
 
         bZ1_LED3_ON = new JButton("LED3 ON");
         bZ1_LED3_ON.setBounds(50,100,100,25);
+        bZ1_LED3_ON.addActionListener(this);
         add(bZ1_LED3_ON);
 
         bZ1_LED3_OFF = new JButton("LED3 OFF");
         bZ1_LED3_OFF.setBounds(155,100,100,25);
+        bZ1_LED3_OFF.addActionListener(this);
         add(bZ1_LED3_OFF);
 
         bZ1_LED4_ON = new JButton("LED4 ON");
         bZ1_LED4_ON.setBounds(50,130,100,25);
+        bZ1_LED4_ON.addActionListener(this);
         add(bZ1_LED4_ON);
 
         bZ1_LED4_OFF = new JButton("LED4 OFF");
         bZ1_LED4_OFF.setBounds(155,130,100,25);
+        bZ1_LED4_OFF.addActionListener(this);
         add(bZ1_LED4_OFF);
 
         bZ1_LED5_ON = new JButton("LED5 ON");
         bZ1_LED5_ON.setBounds(50,160,100,25);
+        bZ1_LED5_ON.addActionListener(this);
         add(bZ1_LED5_ON);
 
         bZ1_LED5_OFF = new JButton("LED5 OFF");
         bZ1_LED5_OFF.setBounds(155,160,100,25);
+        bZ1_LED5_OFF.addActionListener(this);
         add(bZ1_LED5_OFF);
+
+
+        bZ2_LED1_ON = new JButton("LED1 ON");
+        bZ2_LED1_ON.setBounds(285,40,100,25);
+        bZ2_LED1_ON.addActionListener(this);
+        add(bZ2_LED1_ON);
+
+        bZ2_LED1_OFF = new JButton("LED1 OFF");
+        bZ2_LED1_OFF.setBounds(390,40,100,25);
+        bZ2_LED1_OFF.addActionListener(this);
+        add(bZ2_LED1_OFF);
+
+        bZ2_LED2_ON = new JButton("LED2 ON");
+        bZ2_LED2_ON.setBounds(285,70,100,25);
+        bZ2_LED2_ON.addActionListener(this);
+        add(bZ2_LED2_ON);
+
+        bZ2_LED2_OFF = new JButton("LED2 OFF");
+        bZ2_LED2_OFF.setBounds(390,70,100,25);
+        bZ2_LED2_OFF.addActionListener(this);
+        add(bZ2_LED2_OFF);
+
+        bZ2_LED3_ON = new JButton("LED3 ON");
+        bZ2_LED3_ON.setBounds(285,100,100,25);
+        bZ2_LED3_ON.addActionListener(this);
+        add(bZ2_LED3_ON);
+
+        bZ2_LED3_OFF = new JButton("LED3 OFF");
+        bZ2_LED3_OFF.setBounds(390,100,100,25);
+        bZ2_LED3_OFF.addActionListener(this);
+        add(bZ2_LED3_OFF);
+
+        bZ2_LED4_ON = new JButton("LED4 ON");
+        bZ2_LED4_ON.setBounds(285,130,100,25);
+        bZ2_LED4_ON.addActionListener(this);
+        add(bZ2_LED4_ON);
+
+        bZ2_LED4_OFF = new JButton("LED4 OFF");
+        bZ2_LED4_OFF.setBounds(390,130,100,25);
+        bZ2_LED4_OFF.addActionListener(this);
+        add(bZ2_LED4_OFF);
+
+        bZ2_LED5_ON = new JButton("LED5 ON");
+        bZ2_LED5_ON.setBounds(285,160,100,25);
+        bZ2_LED5_ON.addActionListener(this);
+        add(bZ2_LED5_ON);
+
+        bZ2_LED5_OFF = new JButton("LED5 OFF");
+        bZ2_LED5_OFF.setBounds(390,160,100,25);
+        bZ2_LED5_OFF.addActionListener(this);
+        add(bZ2_LED5_OFF);
 
 
     }
@@ -80,7 +152,7 @@ public class ControlApp extends JFrame implements ActionListener {
         g.setColor(new Color(100,100,100));
         g2.draw(area_1);
 
-        Rectangle area_2 = new Rectangle(285,65,220,95);
+        Rectangle area_2 = new Rectangle(285,65,220,195);
         g.setColor(new Color(100,100,100));
         g2.draw(area_2);
     }
@@ -90,12 +162,107 @@ public class ControlApp extends JFrame implements ActionListener {
         //System.out.println("Hello World!");
         ControlApp apk = new ControlApp();
         apk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        apk.getContentPane().setBackground( new Color(200,200,200) );
         apk.setVisible(true);
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        Object zrodlo = e.getSource();
+
+        if(zrodlo == bZ1_LED1_ON)
+        {
+            System.out.println("L1_ON");
+        }
+        if(zrodlo == bZ1_LED1_OFF)
+        {
+            System.out.println("L1_OFF");
+        }
+
+        if(zrodlo == bZ1_LED2_ON)
+        {
+            System.out.println("L2_ON");
+        }
+        if(zrodlo == bZ1_LED2_OFF)
+        {
+            System.out.println("L2_OFF");
+        }
+
+        if(zrodlo == bZ1_LED3_ON)
+        {
+            System.out.println("L3_ON");
+        }
+        if(zrodlo == bZ1_LED3_OFF)
+        {
+            System.out.println("L3_OFF");
+        }
+
+        if(zrodlo == bZ1_LED4_ON)
+        {
+            System.out.println("L4_ON");
+        }
+        if(zrodlo == bZ1_LED4_OFF)
+        {
+            System.out.println("L4_OFF");
+        }
+
+        if(zrodlo == bZ1_LED5_ON)
+        {
+            System.out.println("L5_ON");
+        }
+        if(zrodlo == bZ1_LED5_OFF)
+        {
+            System.out.println("L5_OFF");
+        }
+
+
+
+        if(zrodlo == bZ2_LED1_ON)
+        {
+            System.out.println("L1_ON");
+        }
+        if(zrodlo == bZ2_LED1_OFF)
+        {
+            System.out.println("L1_OFF");
+        }
+
+        if(zrodlo == bZ2_LED2_ON)
+        {
+            System.out.println("L2_ON");
+        }
+        if(zrodlo == bZ2_LED2_OFF)
+        {
+            System.out.println("L2_OFF");
+        }
+
+        if(zrodlo == bZ2_LED3_ON)
+        {
+            System.out.println("L3_ON");
+        }
+        if(zrodlo == bZ2_LED3_OFF)
+        {
+            System.out.println("L3_OFF");
+        }
+
+        if(zrodlo == bZ2_LED4_ON)
+        {
+            System.out.println("L4_ON");
+        }
+        if(zrodlo == bZ2_LED4_OFF)
+        {
+            System.out.println("L4_OFF");
+        }
+
+        if(zrodlo == bZ2_LED5_ON)
+        {
+            System.out.println("L5_ON");
+        }
+        if(zrodlo == bZ2_LED5_OFF)
+        {
+            System.out.println("L5_OFF");
+        }
 
     }
 }
