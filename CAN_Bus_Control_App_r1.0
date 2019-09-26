@@ -12,6 +12,7 @@ import jssc.SerialPortList;
 
 public class ControlApp extends JFrame implements ActionListener {
 
+    static SerialPort serialPort;
 
     private JButton bZ1_LED1_ON, bZ1_LED1_OFF, bZ1_LED2_ON, bZ1_LED2_OFF, bZ1_LED3_ON, bZ1_LED3_OFF;
     private JButton bZ1_LED4_ON, bZ1_LED4_OFF, bZ1_LED5_ON, bZ1_LED5_OFF;
@@ -19,7 +20,13 @@ public class ControlApp extends JFrame implements ActionListener {
     private JButton bZ2_LED1_ON, bZ2_LED1_OFF, bZ2_LED2_ON, bZ2_LED2_OFF, bZ2_LED3_ON, bZ2_LED3_OFF;
     private JButton bZ2_LED4_ON, bZ2_LED4_OFF, bZ2_LED5_ON, bZ2_LED5_OFF;
 
+    private JButton bRSPortOpen, bRSPortScan;
+
+    private JTextField tTypeRSPort, tAvailableRSPorts;
+
     private JLabel lLabel1, lLabel2;
+
+    String chosePort;
 
     public ControlApp() {
         setSize(800, 600);
@@ -141,6 +148,28 @@ public class ControlApp extends JFrame implements ActionListener {
         add(bZ2_LED5_OFF);
 
 
+        bRSPortOpen = new JButton("Open");
+        bRSPortOpen.setBounds(615,450,75,20);
+        add(bRSPortOpen);
+        bRSPortOpen.addActionListener(this);
+
+        bRSPortScan = new JButton("Scan");
+        bRSPortScan.setBounds(530,450,75,20);
+        add(bRSPortScan);
+        bRSPortScan.addActionListener(this);
+
+        tTypeRSPort = new JTextField("");
+        tTypeRSPort.setBounds(585,400,105,20);
+        tTypeRSPort.addActionListener(this);
+        add(tTypeRSPort);
+
+        tAvailableRSPorts = new JTextField("RS232: Please hit SCAN button");
+        tAvailableRSPorts.setBounds(530,425,160,20);
+        tAvailableRSPorts.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,10));
+        add(tAvailableRSPorts);
+        tAvailableRSPorts.addActionListener(this);
+
+
     }
 
     public void paint(Graphics g) {
@@ -166,11 +195,71 @@ public class ControlApp extends JFrame implements ActionListener {
         apk.setVisible(true);
     }
 
+    static class SerialPortReader implements SerialPortEventListener {
+        public void serialEvent(SerialPortEvent event) {
+            //System.out.println("");
+
+
+            try {
+                //byte buffer[] = serialPort.readBytes(5);
+                String k = serialPort.readString();
+                System.out.println(k);
+
+            } catch (SerialPortException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         Object zrodlo = e.getSource();
+
+
+
+        if(zrodlo == bRSPortOpen)
+        {
+            /////////////////////////////////Check RS port//////////////////////////////////////////////////
+            try {
+                chosePort = tTypeRSPort.getText();
+                tTypeRSPort.setText(chosePort.toUpperCase());
+                serialPort = new SerialPort(chosePort);
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("Connection Established\n\r");
+                tTypeRSPort.setBackground(Color.green);
+                tTypeRSPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                tTypeRSPort.setBackground(new Color(255,0,0));
+                tTypeRSPort.setFont(new Font("SansSerif",Font.PLAIN,12));
+
+            }
+        }
+        else if (zrodlo == bRSPortScan)
+        {
+            String a="end";
+            /////////////////////////////////Check RS port//////////////////////////////////////////////////
+            //Method getPortNames() returns an array of strings. Elements of the array is already sorted.
+            String[] portNames = SerialPortList.getPortNames();
+            for(int i = 0; i < portNames.length; i++){
+                System.out.println(portNames[i]);
+                a=portNames[i]+" | "+a;
+            }
+
+
+            tAvailableRSPorts.setText(" "+a);
+        }
 
         if(zrodlo == bZ1_LED1_ON)
         {
