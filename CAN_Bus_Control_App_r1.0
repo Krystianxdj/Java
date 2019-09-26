@@ -28,6 +28,9 @@ public class ControlApp extends JFrame implements ActionListener {
 
     String chosePort;
 
+    int nodeID_1 = 321;
+    int nodeID_2 = 322;
+
     public ControlApp() {
         setSize(800, 600);
         setTitle("CAN Bus Control App r1.0");
@@ -264,6 +267,22 @@ public class ControlApp extends JFrame implements ActionListener {
         if(zrodlo == bZ1_LED1_ON)
         {
             System.out.println("L1_ON");
+
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(9600, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("o\n\r");
+                //serialPort.writeString("t321111\n\r");
+                serialPort.writeString("t"+nodeID_1+"111\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         if(zrodlo == bZ1_LED1_OFF)
         {
