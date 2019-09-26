@@ -21,32 +21,63 @@ public class ControlApp extends JFrame implements ActionListener {
     private JButton bZ2_LED4_ON, bZ2_LED4_OFF, bZ2_LED5_ON, bZ2_LED5_OFF;
 
     private JButton bRSPortOpen, bRSPortScan;
+    private JButton bReadNode_1, bReadNode_2;
+
+    private JCheckBox cReadNode_1, cReadNode_2;
 
     private JTextField tTypeRSPort, tAvailableRSPorts;
+    private JTextField tReadNodeID_1, tReadNodeID_2;
 
     private JLabel lLabel1, lLabel2;
 
     String chosePort;
+    String node_1;
+    String node_2;
 
-    int nodeID_1 = 321;
-    int nodeID_2 = 322;
+
+   // int nodeID_1 = 321;
+   // int nodeID_2 = 322;
 
     public ControlApp() {
         setSize(800, 600);
         setTitle("CAN Bus Control App r1.0");
         setLayout(null);
 
-        lLabel1 = new JLabel("Zone 1 Control");
+        lLabel1 = new JLabel("Zone 1 Node ID");
         lLabel1.setBounds(55,200,120,25);
         lLabel1.setForeground(new Color(100,100,100));
         lLabel1.setFont(new Font("TimesRoman", Font.BOLD, 15));
         add(lLabel1);
 
-        lLabel2 = new JLabel("Zone 2 Control");
+        lLabel2 = new JLabel("Zone 2 Node ID");
         lLabel2.setBounds(290,200,120,25);
         lLabel2.setForeground(new Color(100,100,100));
         lLabel2.setFont(new Font("TimesRoman", Font.BOLD, 15));
         add(lLabel2);
+
+        /*
+        bReadNode_1 = new JButton("");
+        bReadNode_1.setBounds(202,203,18,18);
+        bReadNode_1.addActionListener(this);
+        add(bReadNode_1);
+
+        bReadNode_2 = new JButton("");
+        bReadNode_2.setBounds(437,203,18,18);
+        bReadNode_2.addActionListener(this);
+        add(bReadNode_2);
+
+         */
+
+
+        cReadNode_1 = new JCheckBox();
+        cReadNode_1.setBounds(202,203,18,18);
+        cReadNode_1.addActionListener(this);
+        add(cReadNode_1);
+
+        cReadNode_2 = new JCheckBox();
+        cReadNode_2.setBounds(437,203,18,18);
+        cReadNode_2.addActionListener(this);
+        add(cReadNode_2);
 
         bZ1_LED1_ON = new JButton("LED1 ON");
         bZ1_LED1_ON.setBounds(50,40,100,25);
@@ -172,6 +203,16 @@ public class ControlApp extends JFrame implements ActionListener {
         add(tAvailableRSPorts);
         tAvailableRSPorts.addActionListener(this);
 
+        tReadNodeID_1 = new JTextField("000");
+        tReadNodeID_1.setBounds(170,203,30,18);
+        add(tReadNodeID_1);
+        tReadNodeID_1.addActionListener(this);
+
+        tReadNodeID_2 = new JTextField("000");
+        tReadNodeID_2.setBounds(405,203,30,18);
+        add(tReadNodeID_2);
+        tReadNodeID_2.addActionListener(this);
+
 
     }
 
@@ -223,6 +264,56 @@ public class ControlApp extends JFrame implements ActionListener {
 
         Object zrodlo = e.getSource();
 
+        /*
+        if(zrodlo == bReadNode_1)
+        {
+            node_1 = tReadNodeID_1.getText();
+            tReadNodeID_1.setBackground(Color.green);
+            tReadNodeID_1.setFont(new Font("SansSerif",Font.BOLD,12));
+        }
+        if(zrodlo == bReadNode_2)
+        {
+            node_2 = tReadNodeID_2.getText();
+            tReadNodeID_2.setBackground(Color.green);
+            tReadNodeID_2.setFont(new Font("SansSerif",Font.BOLD,12));
+        }
+         */
+
+        if(zrodlo == cReadNode_1)
+        {
+           if(cReadNode_1.isSelected() == true)
+           {
+               node_1 = tReadNodeID_1.getText();
+               tReadNodeID_1.setBackground(Color.green);
+               tReadNodeID_1.setFont(new Font("SansSerif",Font.BOLD,12));
+           }
+            else
+           {
+               node_1 = "000";
+               tReadNodeID_1.setBackground(Color.white);
+               tReadNodeID_1.setFont(new Font("SansSerif",Font.BOLD,12));
+           }
+
+
+        }
+        if(zrodlo == cReadNode_2)
+        {
+            if(cReadNode_2.isSelected() == true)
+            {
+                node_2 = tReadNodeID_2.getText();
+                tReadNodeID_2.setBackground(Color.green);
+                tReadNodeID_2.setFont(new Font("SansSerif",Font.BOLD,12));
+            }
+            else
+            {
+                node_2 = "000";
+                tReadNodeID_2.setBackground(Color.white);
+                tReadNodeID_2.setFont(new Font("SansSerif",Font.BOLD,12));
+            }
+
+
+        }
+
 
 
         if(zrodlo == bRSPortOpen)
@@ -233,7 +324,7 @@ public class ControlApp extends JFrame implements ActionListener {
                 tTypeRSPort.setText(chosePort.toUpperCase());
                 serialPort = new SerialPort(chosePort);
                 serialPort.openPort();//Open port
-                serialPort.setParams(9600, 8, 1, 0);//Set params
+                serialPort.setParams(115200, 8, 1, 0);//Set params
                 int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
                 serialPort.setEventsMask(mask);//Set mask
                 serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
@@ -270,13 +361,12 @@ public class ControlApp extends JFrame implements ActionListener {
 
             try {
                 serialPort.openPort();//Open port
-                serialPort.setParams(9600, 8, 1, 0);//Set params
+                serialPort.setParams(115200, 8, 1, 0);//Set params
                 int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
                 serialPort.setEventsMask(mask);//Set mask
                 serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
                 serialPort.writeString("o\n\r");
-                //serialPort.writeString("t321111\n\r");
-                serialPort.writeString("t"+nodeID_1+"111\n\r");
+                serialPort.writeString("t"+node_1+"111\n\r");
                 serialPort.closePort();
             }
             catch (SerialPortException ex) {
@@ -292,6 +382,21 @@ public class ControlApp extends JFrame implements ActionListener {
         if(zrodlo == bZ1_LED2_ON)
         {
             System.out.println("L2_ON");
+
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(115200, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("o\n\r");
+                serialPort.writeString("t"+node_1+"112\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         if(zrodlo == bZ1_LED2_OFF)
         {
@@ -301,6 +406,21 @@ public class ControlApp extends JFrame implements ActionListener {
         if(zrodlo == bZ1_LED3_ON)
         {
             System.out.println("L3_ON");
+
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(115200, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("o\n\r");
+                serialPort.writeString("t"+node_1+"113\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         if(zrodlo == bZ1_LED3_OFF)
         {
@@ -310,6 +430,21 @@ public class ControlApp extends JFrame implements ActionListener {
         if(zrodlo == bZ1_LED4_ON)
         {
             System.out.println("L4_ON");
+
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(115200, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("o\n\r");
+                serialPort.writeString("t"+node_1+"114\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         if(zrodlo == bZ1_LED4_OFF)
         {
@@ -319,6 +454,21 @@ public class ControlApp extends JFrame implements ActionListener {
         if(zrodlo == bZ1_LED5_ON)
         {
             System.out.println("L5_ON");
+
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(115200, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("o\n\r");
+                serialPort.writeString("t"+node_1+"115\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         if(zrodlo == bZ1_LED5_OFF)
         {
@@ -330,6 +480,21 @@ public class ControlApp extends JFrame implements ActionListener {
         if(zrodlo == bZ2_LED1_ON)
         {
             System.out.println("L1_ON");
+
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(115200, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("o\n\r");
+                serialPort.writeString("t"+node_2+"111\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         if(zrodlo == bZ2_LED1_OFF)
         {
@@ -339,6 +504,21 @@ public class ControlApp extends JFrame implements ActionListener {
         if(zrodlo == bZ2_LED2_ON)
         {
             System.out.println("L2_ON");
+
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(115200, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("o\n\r");
+                serialPort.writeString("t"+node_2+"112\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         if(zrodlo == bZ2_LED2_OFF)
         {
@@ -348,6 +528,21 @@ public class ControlApp extends JFrame implements ActionListener {
         if(zrodlo == bZ2_LED3_ON)
         {
             System.out.println("L3_ON");
+
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(115200, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("o\n\r");
+                serialPort.writeString("t"+node_2+"113\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         if(zrodlo == bZ2_LED3_OFF)
         {
@@ -357,6 +552,21 @@ public class ControlApp extends JFrame implements ActionListener {
         if(zrodlo == bZ2_LED4_ON)
         {
             System.out.println("L4_ON");
+
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(115200, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("o\n\r");
+                serialPort.writeString("t"+node_2+"114\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         if(zrodlo == bZ2_LED4_OFF)
         {
@@ -366,6 +576,21 @@ public class ControlApp extends JFrame implements ActionListener {
         if(zrodlo == bZ2_LED5_ON)
         {
             System.out.println("L5_ON");
+
+            try {
+                serialPort.openPort();//Open port
+                serialPort.setParams(115200, 8, 1, 0);//Set params
+                int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
+                serialPort.setEventsMask(mask);//Set mask
+                serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
+                serialPort.writeString("o\n\r");
+                serialPort.writeString("t"+node_2+"115\n\r");
+                serialPort.closePort();
+            }
+            catch (SerialPortException ex) {
+                System.out.println(ex);
+                System.out.println("tr");
+            }
         }
         if(zrodlo == bZ2_LED5_OFF)
         {
