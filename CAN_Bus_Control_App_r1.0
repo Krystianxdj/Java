@@ -149,22 +149,22 @@ public class ControlApp extends JFrame implements ActionListener {
 
 
         bRSPortOpen = new JButton("Open");
-        bRSPortOpen.setBounds(615,450,75,20);
+        bRSPortOpen.setBounds(665,500,75,20);
         add(bRSPortOpen);
         bRSPortOpen.addActionListener(this);
 
         bRSPortScan = new JButton("Scan");
-        bRSPortScan.setBounds(530,450,75,20);
+        bRSPortScan.setBounds(580,500,75,20);
         add(bRSPortScan);
         bRSPortScan.addActionListener(this);
 
         tTypeRSPort = new JTextField("");
-        tTypeRSPort.setBounds(585,400,105,20);
+        tTypeRSPort.setBounds(580,450,160,20);
         tTypeRSPort.addActionListener(this);
         add(tTypeRSPort);
 
         tAvailableRSPorts = new JTextField("RS232: Please hit SCAN button");
-        tAvailableRSPorts.setBounds(530,425,160,20);
+        tAvailableRSPorts.setBounds(580,475,160,20);
         tAvailableRSPorts.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,10));
         add(tAvailableRSPorts);
         tAvailableRSPorts.addActionListener(this);
