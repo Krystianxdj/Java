@@ -88,6 +88,10 @@ public class GridPaneExperiments extends Application  {
         GridPane.setColumnSpan(lnapis1,3);
         gridPane.getChildren().add(lnapis1);
 
+        GridPane.setConstraints(tPoleTekstowe,1,5);
+        GridPane.setColumnSpan(tPoleTekstowe,3);
+        gridPane.getChildren().add(tPoleTekstowe);
+
         Scene scene = new Scene(gridPane, 500, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
