@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 
 public class ControlApp extends Application  {
 
@@ -65,6 +68,87 @@ public class ControlApp extends Application  {
         button18.setPrefWidth(75);
         button19.setPrefWidth(75);
         button20.setPrefWidth(75);
+
+
+        bZone1_ID.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed bZone1_ID Button");
+            }
+        });
+        button1.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed button1 Button");
+            }
+        });
+        button2.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed button2 Button");
+            }
+        });
+        button3.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed button3 Button");
+            }
+        });
+        button4.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed button4 Button");
+            }
+        });
+        button5.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed button5 Button");
+            }
+        });
+        button6.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed button6 Button");
+            }
+        });
+        button7.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed button7 Button");
+            }
+        });
+        button8.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed button8 Button");
+            }
+        });
+        button9.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed button9 Button");
+            }
+        });
+        button10.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override public void handle(ActionEvent e)
+            {
+                System.out.println("You have pressed button10 Button");
+            }
+        });
+
+
 
 
         //Label lZone1 = new Label("Zone 1 Node ID");
