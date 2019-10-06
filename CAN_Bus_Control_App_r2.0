@@ -16,25 +16,65 @@ public class ControlApp extends Application  {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("GridPane Experiment");
+        primaryStage.setTitle("CAN Bus Control App r2.0 by KTW");
 
-        Button button0 = new Button("Zone 1 ID");
-        Button button1 = new Button("Button 01");
-        Button button2 = new Button("Button 02");
-        Button button3 = new Button("Button 03");
-        Button button4 = new Button("Button 04");
-        Button button5 = new Button("Button 05");
-        Button button6 = new Button("Button 06");
-        Button button7 = new Button("Button 07");
-        Button button8 = new Button("Button 08");
-        Button button9 = new Button("Button 09");
-        Button button10 = new Button("Button 1000");
-        button10.setMaxWidth(100);
+        Button bZone1_ID = new Button("Zone 1 ID");
+        Button button1 = new Button("LED 1 ON");
+        Button button2 = new Button("LED 2 ON");
+        Button button3 = new Button("LED 3 ON");
+        Button button4 = new Button("LED 4 ON");
+        Button button5 = new Button("LED 5 ON");
+        Button button6 = new Button("LED 1 OFF");
+        Button button7 = new Button("LED 2 OFF");
+        Button button8 = new Button("LED 3 OFF");
+        Button button9 = new Button("LED 4 OFF");
+        Button button10 = new Button("LED 5 OFF");
+
+        bZone1_ID.setPrefWidth(75);
+        button1.setPrefWidth(75);
+        button2.setPrefWidth(75);
+        button3.setPrefWidth(75);
+        button4.setPrefWidth(75);
+        button5.setPrefWidth(75);
+        button6.setPrefWidth(75);
+        button7.setPrefWidth(75);
+        button8.setPrefWidth(75);
+        button9.setPrefWidth(75);
+        button10.setPrefWidth(75);
+
+        Button bZone2_ID = new Button("Zone 2 ID");
+        Button button11 = new Button("LED 1 ON");
+        Button button12= new Button("LED 2 ON");
+        Button button13 = new Button("LED 3 ON");
+        Button button14 = new Button("LED 4 ON");
+        Button button15 = new Button("LED 5 ON");
+        Button button16 = new Button("LED 1 OFF");
+        Button button17 = new Button("LED 2 OFF");
+        Button button18 = new Button("LED 3 OFF");
+        Button button19 = new Button("LED 4 OFF");
+        Button button20 = new Button("LED 5 OFF");
+
+        bZone2_ID.setPrefWidth(75);
+        button11.setPrefWidth(75);
+        button12.setPrefWidth(75);
+        button13.setPrefWidth(75);
+        button14.setPrefWidth(75);
+        button15.setPrefWidth(75);
+        button16.setPrefWidth(75);
+        button17.setPrefWidth(75);
+        button18.setPrefWidth(75);
+        button19.setPrefWidth(75);
+        button20.setPrefWidth(75);
+
 
         //Label lZone1 = new Label("Zone 1 Node ID");
 
         TextField tZone_Node_ID_1 = new TextField();
         tZone_Node_ID_1.setPrefWidth(10);
+        //tZone_Node_ID_1.setMaxWidth(35);
+
+        TextField tZone_Node_ID_2 = new TextField();
+        tZone_Node_ID_2.setPrefWidth(10);
         //tZone_Node_ID_1.setMaxWidth(35);
 
 
@@ -44,7 +84,7 @@ public class ControlApp extends Application  {
         gridPane.setHgap(5);
         gridPane.setVgap(5);
 
-        gridPane.add(button0, 5, 14, 1, 1);
+        gridPane.add(bZone1_ID, 5, 14, 1, 1);
         gridPane.add(button1, 5, 15, 1, 1);
         gridPane.add(button2, 5, 16, 1, 1);
         gridPane.add(button3, 5, 17, 1, 1);
@@ -56,6 +96,18 @@ public class ControlApp extends Application  {
         gridPane.add(button9, 6, 18, 1, 1);
         gridPane.add(button10, 6, 19, 1, 1);
 
+        gridPane.add(bZone2_ID, 14, 14, 1, 1);
+        gridPane.add(button11, 14, 15, 1, 1);
+        gridPane.add(button12, 14, 16, 1, 1);
+        gridPane.add(button13, 14, 17, 1, 1);
+        gridPane.add(button14, 14, 18, 1, 1);
+        gridPane.add(button15, 14, 19, 1, 1);
+        gridPane.add(button16, 15, 15, 1, 1);
+        gridPane.add(button17, 15, 16, 1, 1);
+        gridPane.add(button18, 15, 17, 1, 1);
+        gridPane.add(button19, 15, 18, 1, 1);
+        gridPane.add(button20, 15, 19, 1, 1);
+
         //GridPane.setConstraints(lZone1,5,14);
         //GridPane.setColumnSpan(lZone1,10);
         //gridPane.getChildren().add(lZone1);
@@ -63,6 +115,10 @@ public class ControlApp extends Application  {
         GridPane.setConstraints(tZone_Node_ID_1, 6,14);
         GridPane.setColumnSpan(tZone_Node_ID_1,1);
         gridPane.getChildren().add(tZone_Node_ID_1);
+
+        GridPane.setConstraints(tZone_Node_ID_2, 15,14);
+        GridPane.setColumnSpan(tZone_Node_ID_2,1);
+        gridPane.getChildren().add(tZone_Node_ID_2);
 
 
         Scene scene = new Scene(gridPane, 800, 300);
