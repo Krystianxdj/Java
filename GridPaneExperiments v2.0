@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -9,12 +10,15 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+import javax.swing.*;
+
 
 public class GridPaneExperiments extends Application  {
 
     Label lnapis1 = new Label("Napis testowy");
     TextField tPoleTekstowe = new TextField();
     String odczytajPole;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -27,11 +31,16 @@ public class GridPaneExperiments extends Application  {
         Button button5 = new Button("Button 5");
         Button button6 = new Button("Button 6");
 
+        CheckBox cBox1 = new CheckBox();
+        CheckBox cBox2 = new CheckBox();
+
+
         button1.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override public void handle(ActionEvent e)
             {
                 odczytajPole = tPoleTekstowe.getText();
+                tPoleTekstowe.setStyle("-fx-border-color: #aaaaaa; -fx-background-color: #00ff00;");
                 System.out.println(odczytajPole);
             }
         });
@@ -79,6 +88,9 @@ public class GridPaneExperiments extends Application  {
         gridPane.add(button4, 0, 1, 1, 1);
         gridPane.add(button5, 1, 1, 1, 1);
         gridPane.add(button6, 2, 1, 1, 1);
+
+        gridPane.add(cBox1, 5, 0, 1, 1);
+        gridPane.add(cBox2, 6, 0, 1, 1);
 
         gridPane.setHgap(10);
         gridPane.setVgap(10);
