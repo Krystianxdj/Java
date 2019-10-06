@@ -12,13 +12,13 @@ import javafx.event.EventHandler;
 
 public class GridPaneExperiments extends Application  {
 
+    Label lnapis1 = new Label("Napis testowy");
+    TextField tPoleTekstowe = new TextField();
+    String odczytajPole;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("GridPane Experiment");
-
-        Label lnapis1 = new Label("Napis testowy");
-        TextField tPoleTekstowe = new TextField();
 
         Button button1 = new Button("Button 1");
         Button button2 = new Button("Button 2");
@@ -31,7 +31,8 @@ public class GridPaneExperiments extends Application  {
         {
             @Override public void handle(ActionEvent e)
             {
-                System.out.println("You have pressed Button 1");
+                odczytajPole = tPoleTekstowe.getText();
+                System.out.println(odczytajPole);
             }
         });
         button2.setOnAction(new EventHandler<ActionEvent>()
