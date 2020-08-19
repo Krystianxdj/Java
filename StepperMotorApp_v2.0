@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Color;
@@ -238,6 +237,8 @@ public class ControlApp extends JFrame implements ActionListener {
                 tTypeRSPort.setBackground(Color.green);
                 tTypeRSPort.setFont(new Font("SansSerif",Font.PLAIN,12));
                 serialPort.closePort();
+
+                System.out.println(">> Port " + chosePort.toUpperCase() + " now is open");
             }
             catch (SerialPortException ex) {
                 System.out.println(ex);
@@ -253,7 +254,7 @@ public class ControlApp extends JFrame implements ActionListener {
             //Method getPortNames() returns an array of strings. Elements of the array is already sorted.
             String[] portNames = SerialPortList.getPortNames();
             for(int i = 0; i < portNames.length; i++){
-                System.out.println(portNames[i]);
+                System.out.println(">> Available Port: " + portNames[i]);
                 a=portNames[i]+" | "+a;
             }
 
