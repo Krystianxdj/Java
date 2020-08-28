@@ -41,7 +41,15 @@ public class SwingWorkerRealTime {
 
             try {
                 //byte buffer[] = serialPort.readBytes(5);
-                String k = serialPort.readString();
+                //String k = serialPort.readString();
+
+                byte[] buf = serialPort.readBytes(4);
+                if (buf == null || buf.length <= 0) {
+                    return;
+                }
+
+                String k = new String(buf, 0, buf.length);
+
                 System.out.println(k);
 
                 wartosc = Integer.parseInt(k);
@@ -89,7 +97,7 @@ public class SwingWorkerRealTime {
         protected Boolean doInBackground() throws Exception {
 
 
-            serialPort = new SerialPort("Com5");
+            serialPort = new SerialPort("Com10");
             serialPort.openPort();//Open port
             serialPort.setParams(9600, 8, 1, 0);//Set params
             int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
