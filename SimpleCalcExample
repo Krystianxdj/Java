@@ -1,0 +1,45 @@
+//new class Liczby
+class Liczby {
+
+    double x;
+    double y;
+
+    Liczby(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    double dodaj() {
+        return x + y;
+    }
+    double odejmij(){
+        return  x-y;
+    }
+    double pomnoz(){
+        return x*y;
+    }
+    double podziel(){
+        return x/y;
+    }
+
+}
+
+
+//new class Test
+public class Test {
+
+    public static void main(String[] args) {
+
+        Liczby liczby1 = new Liczby(6, 4);
+
+        double wynik_dodawania = liczby1.dodaj();
+        double wynik_odejmowania = liczby1.odejmij();
+        double wynik_mnozenia = liczby1.pomnoz();
+        double wynik_dzielenia = liczby1.podziel();
+
+        System.out.println(wynik_dodawania);
+        System.out.println(wynik_odejmowania);
+        System.out.println(wynik_mnozenia);
+        System.out.println(wynik_dzielenia);
+    }
+}
