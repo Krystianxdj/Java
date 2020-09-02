@@ -1,0 +1,34 @@
+// new class Liczby
+/**********************************************************************/
+class Liczby {
+
+    int x;
+    int y;
+
+    Liczby(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    int dodaj() {
+        return x + y;
+    }
+    int odejmij(){
+        return  x-y;
+    }
+
+}
+/**********************************************************************/
+
+// new class Test
+/**********************************************************************/
+public class Test {
+
+    public static void main(String[] args) {
+
+        Liczby liczby1 = new Liczby(10, 6);
+
+        System.out.println(liczby1.odejmij()); // lub dodaj()
+    }
+}
+/**********************************************************************/
