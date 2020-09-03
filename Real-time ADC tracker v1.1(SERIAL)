@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -75,6 +76,7 @@ public class SwingWorkerRealTime {
 
         chart.getStyler().setToolTipsEnabled(true);             //displays value when the user moves or hovers the pointer over a line
         //chart.getStyler().setToolTipsAlwaysVisible(true);
+        chart.getStyler().setToolTipBorderColor(Color.blue);
 
         // Show it
         sw = new SwingWrapper<XYChart>(chart);
