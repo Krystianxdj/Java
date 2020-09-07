@@ -84,7 +84,7 @@ public class SwingWorkerRealTime {
         chart.getStyler().setXAxisTicksVisible(true);
 
         chart.getStyler().setToolTipsEnabled(true);             //displays value when the user moves or hovers the pointer over a line
-        //chart.getStyler().setToolTipsAlwaysVisible(true);
+        chart.getStyler().setToolTipsAlwaysVisible(false);
         chart.getStyler().setToolTipBorderColor(Color.blue);
 
         chart.getStyler().setYAxisMin(0.0);
