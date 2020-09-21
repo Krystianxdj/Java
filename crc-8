@@ -1,10 +1,36 @@
-public class crc8 {
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+public class main extends JFrame implements ActionListener {
+
+    private JTextField tValue1, tValue2, tValue3, tValue4;
+    private JLabel lLabel1;
+    private JButton bButton1;
+
+
+    public main()
+    {
+        setSize(400,200);
+        setTitle("CRC-8 Checksum calculator");
+        setLayout(null);
+
+        bButton1 = new JButton("Calculate");
+        bButton1.setBounds(120,100,150,20);
+        add(bButton1);
+        bButton1.addActionListener(this);
+
+        tValue1 = new JTextField("");
+        tValue1.setBounds(50,50,40,20);
+        add(tValue1);
+        tValue1.addActionListener(this);
+
+    }
 
 
     public static byte Compute_CRC8_Simple(byte[] bytes)
     {
-    byte generator = 0x1D;
+    byte generator = 0x1D; /* polynominal */
         byte crc = 0; /* start with 0 so first byte can be 'xored' in */
 
         for (byte currByte : bytes)
@@ -24,20 +50,38 @@ public class crc8 {
             }
         }
 
-
-
-        System.out.println("CRC-8 = " + Integer.toHexString(crc));
+        System.out.println("CRC-8 Checksum = " + Integer.toHexString(crc).toUpperCase());
 
         return crc;
-
-
     }
+
+
+
 
     public static void main(String[] args) {
-        byte[] bytes = {0x01, 0x02, 0x25, 0x10};
+
+        main apk = new main();
+        apk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        apk.setVisible(true);
 
 
-        Compute_CRC8_Simple(bytes);
+
+
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        Object zrodlo = e.getSource();
+
+        if(zrodlo == bButton1)
+        {
+
+            byte[] bytes = {0x22, 0x05, 0x17, 0x25, 0x45, 0x12};
+
+            Compute_CRC8_Simple(bytes);
+        }
+
+
+    }
 }
