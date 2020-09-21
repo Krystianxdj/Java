@@ -24,7 +24,9 @@ public class crc8 {
             }
         }
 
-        System.out.println("Hello " + crc);
+
+
+        System.out.println("CRC-8 = " + Integer.toHexString(crc));
 
         return crc;
 
@@ -32,12 +34,10 @@ public class crc8 {
     }
 
     public static void main(String[] args) {
-        byte[] bytes = {0x01, 0x02, 0x05};
+        byte[] bytes = {0x01, 0x02, 0x25, 0x10};
 
 
         Compute_CRC8_Simple(bytes);
-
-
     }
 
 }
