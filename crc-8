@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 public class main extends JFrame implements ActionListener {
 
-    private JTextField tValue1, tValue2, tValue3, tValue4;
+    private JTextField tValue1, tValue2, tValue3, tValue4, tValue5, tValue6;
     private JLabel lLabel1;
     private JButton bButton1;
 
@@ -20,10 +20,35 @@ public class main extends JFrame implements ActionListener {
         add(bButton1);
         bButton1.addActionListener(this);
 
-        tValue1 = new JTextField("");
-        tValue1.setBounds(50,50,40,20);
+        tValue1 = new JTextField("0");
+        tValue1.setBounds(20,50,40,20);
         add(tValue1);
         tValue1.addActionListener(this);
+
+        tValue2 = new JTextField("0");
+        tValue2.setBounds(70,50,40,20);
+        add(tValue2);
+        tValue2.addActionListener(this);
+
+        tValue3 = new JTextField("0");
+        tValue3.setBounds(120,50,40,20);
+        add(tValue3);
+        tValue3.addActionListener(this);
+
+        tValue4 = new JTextField("0");
+        tValue4.setBounds(170,50,40,20);
+        add(tValue4);
+        tValue4.addActionListener(this);
+
+        tValue5 = new JTextField("0");
+        tValue5.setBounds(220,50,40,20);
+        add(tValue5);
+        tValue5.addActionListener(this);
+
+        tValue6 = new JTextField("0");
+        tValue6.setBounds(270,50,40,20);
+        add(tValue6);
+        tValue6.addActionListener(this);
 
     }
 
@@ -77,7 +102,15 @@ public class main extends JFrame implements ActionListener {
         if(zrodlo == bButton1)
         {
 
-            byte[] bytes = {0x22, 0x05, 0x17, 0x25, 0x45, 0x12};
+
+            byte value1 = (byte) Integer.parseInt(tValue1.getText(),16);
+            byte value2 = (byte) Integer.parseInt(tValue2.getText(),16);
+            byte value3 = (byte) Integer.parseInt(tValue3.getText(),16);
+            byte value4 = (byte) Integer.parseInt(tValue4.getText(),16);
+            byte value5 = (byte) Integer.parseInt(tValue5.getText(),16);
+            byte value6 = (byte) Integer.parseInt(tValue6.getText(),16);
+
+            byte[] bytes = {value1, value2, value3, value4, value5, value6};
 
             Compute_CRC8_Simple(bytes);
         }
