@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static java.lang.Math.abs;
+
 public class main extends JFrame implements ActionListener {
 
     private JTextField tValue1, tValue2, tValue3, tValue4, tValue5, tValue6;
@@ -75,7 +77,8 @@ public class main extends JFrame implements ActionListener {
             }
         }
 
-        System.out.println("CRC-8 Checksum = " + Integer.toHexString(crc).toUpperCase());
+        System.out.println("CRC-8 Checksum = " + abs(crc));
+        System.out.println("CRC-8 Checksum = " + Integer.toHexString(abs(crc)).toUpperCase());
 
         return crc;
     }
